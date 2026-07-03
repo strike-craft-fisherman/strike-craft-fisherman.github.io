@@ -325,8 +325,37 @@
                                 <label for="forumText">Your Message</label>
                                 <textarea id="forumText" class="textarea-field" placeholder="Describe your question..."></textarea>
                             </div>
-                            <button class="selector-btn" onclick="addNewThread()">Post Message</button>
-                        </div>
+     <button class="selector-btn" onclick="addNewThread()">Post Message</button>
+     
+     <script>
+     async function addNewThread() {
+         const username = document.getElementById('forumUser').value.trim();
+         const title = document.getElementById('forumTopic').value.trim();
+         const message = document.getElementById('forumText').value.trim();
+
+         if (!username || !title || !message) {
+             alert('Please fill in all fields!');
+             return;
+         }
+
+         // Отправка данных напрямую в Supabase
+         const { error } = await window.supabase
+             .from('forum_posts')
+             .insert([{ username, title, message }]);
+
+         if (error) {
+             alert('Error: ' + error.message);
+             console.error(error);
+         } else {
+             alert('Success! Post created.');
+             document.getElementById('forumUser').value = '';
+             document.getElementById('forumTopic').value = '';
+             document.getElementById('forumText').value = '';
+             if (typeof loadPosts === 'function') loadPosts();
+         }
+     }
+     </script>
+ </div>
                     </div>
 
                     <div class="author-box">

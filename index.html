@@ -17,9 +17,9 @@
         nav a:hover { color: #f2a900; }
         
         /* Hero Section */
-        .hero { background: linear-gradient(rgba(27, 54, 93, 0.85), rgba(27, 54, 93, 0.85)), url('https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=1200&q=80') no-repeat center center/cover; color: white; padding: 100px 0; text-align: center; }
+        .hero { background: linear-gradient(rgba(27, 54, 93, 0.85), rgba(27, 54, 93, 0.85)), url('https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=1200&q=80') no-repeat center center/cover; color: white; padding: 110px 0; text-align: center; }
         .hero h1 { font-size: 46px; margin-bottom: 15px; letter-spacing: 1px; }
-        .hero p { font-size: 20px; color: #f2a900; font-weight: 500; }
+        .hero p { font-size: 20px; color: #f2a900; font-weight: 500; max-width: 700px; margin: 0 auto; line-height: 1.4; }
         
         /* Main Layout */
         .main-layout { display: flex; flex-wrap: wrap; gap: 30px; margin: 40px auto; width: 90%; max-width: 1200px; }
@@ -31,6 +31,17 @@
         h2 { color: #1b365d; margin-bottom: 20px; border-bottom: 2px solid #f2a900; padding-bottom: 8px; font-size: 28px; }
         h3 { color: #1b365d; margin-bottom: 10px; }
         
+        /* Author Bio Styling */
+        .bio-box { display: flex; gap: 20px; align-items: center; background: #f8fafd; padding: 20px; border-radius: 6px; border-left: 4px solid #f2a900; margin-top: 15px; }
+        .bio-avatar { font-size: 40px; background: #e1e8ed; padding: 15px; border-radius: 50%; }
+        
+        /* Showcase Gallery */
+        .showcase-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-top: 20px; }
+        .showcase-item { background: #fff; border: 1px solid #e1e8ed; border-radius: 6px; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.02); text-align: center; padding-bottom: 15px; }
+        .showcase-img { width: 100%; height: 140px; background-color: #d1dae3; display: flex; align-items: center; justify-content: center; font-weight: bold; color: #666; font-size: 14px; background-size: cover; background-position: center; }
+        .showcase-item h4 { margin: 12px 0 5px 0; color: #1b365d; }
+        .showcase-item span { font-size: 13px; color: #f2a900; font-weight: bold; background: #1b365d; padding: 2px 8px; border-radius: 10px; }
+
         /* Tactics Table */
         table { width: 100%; border-collapse: collapse; margin-top: 15px; }
         th, td { padding: 14px; text-align: left; border-bottom: 1px solid #ddd; }
@@ -38,23 +49,32 @@
         tr:hover { background-color: #f9f9f9; }
         
         /* Guides Grid */
-        .guides-grid { display: grid; grid-template-columns: 1px 1px; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 20px; }
+        .guides-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 20px; }
         .guide-item { background: #f8fafd; border: 1px solid #e1e8ed; padding: 20px; border-radius: 6px; }
         .guide-item p { font-size: 14px; color: #666; margin-top: 5px; }
         
-        /* Forum List */
+        /* Forum List Interactivity */
         .forum-list { margin-top: 20px; }
-        .forum-thread { display: flex; justify-content: space-between; padding: 15px; background: #fff; border: 1px solid #e1e8ed; border-radius: 6px; margin-bottom: 10px; transition: transform 0.2s; }
-        .forum-thread:hover { transform: translateX(5px); border-color: #f2a900; }
+        .forum-thread { border: 1px solid #e1e8ed; border-radius: 6px; margin-bottom: 12px; overflow: hidden; background: #fff; }
+        .thread-header { display: flex; justify-content: space-between; padding: 15px; cursor: pointer; transition: background 0.2s; user-select: none; }
+        .thread-header:hover { background: #f8fafd; }
         .thread-info { display: flex; flex-direction: column; }
         .thread-meta { font-size: 12px; color: #888; margin-top: 4px; }
         .thread-replies { background: #eef3f7; padding: 5px 12px; border-radius: 20px; font-size: 13px; font-weight: bold; color: #1b365d; align-self: center; }
         
-        /* Widget & Calculator */
-        .widget { background: #eef3f7; padding: 30px; border-radius: 8px; border-left: 5px solid #1b365d; position: sticky; top: 110px; scroll-margin-top: 110px; }
+        /* Hidden Forum Content */
+        .thread-content { display: none; padding: 20px; background: #fafbfc; border-top: 1px dashed #e1e8ed; font-size: 15px; }
+        .forum-post { margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px solid #eee; }
+        .forum-post:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+        .post-author { font-weight: bold; color: #1b365d; font-size: 14px; }
+        .post-text { margin-top: 5px; color: #444; }
+        
+        /* Sidebar Sticky Widgets */
+        .sidebar-wrapper { position: sticky; top: 110px; display: flex; flex-direction: column; gap: 30px; }
+        .widget { background: #eef3f7; padding: 30px; border-radius: 8px; border-left: 5px solid #1b365d; scroll-margin-top: 110px; }
         .form-group { margin-bottom: 20px; }
         label { display: block; margin-bottom: 8px; font-weight: bold; color: #1b365d; }
-        select { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 4px; font-size: 16px; background-color: white; }
+        select, .input-field { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 4px; font-size: 16px; background-color: white; }
         .btn { display: inline-block; background: #f2a900; color: #1b365d; padding: 14px 20px; border: none; border-radius: 4px; font-weight: bold; cursor: pointer; width: 100%; font-size: 16px; transition: background 0.3s; margin-top: 10px; text-transform: uppercase; letter-spacing: 0.5px; }
         .btn:hover { background: #d49200; }
         .result-box { margin-top: 20px; padding: 15px; background: white; border-radius: 4px; border: 1px dashed #1b365d; display: none; font-weight: 500; text-align: center; color: #1b365d; line-height: 1.5; }
@@ -68,6 +88,7 @@
         <div class="container">
             <a href="#" class="logo">STRIKE CRAFT</a>
             <nav>
+                <a href="#about">About</a>
                 <a href="#tactics">Tactics</a>
                 <a href="#selector">Lure Selector</a>
                 <a href="#guides">Guides</a>
@@ -78,13 +99,46 @@
 
     <section class="hero">
         <h1>Handcrafted Lures & Fishing Tactics</h1>
-        <p>Mastering the Art of Lure Making and Predator Fishing Strategies</p>
+        <p>15 years of hardcore predator fishing experience, custom wood-carving secrets, and field-tested lake strategies brought directly to your workbench.</p>
     </section>
 
     <div class="main-layout">
         
-        <!-- Left Column: Content Area -->
+        <!-- Left Column -->
         <div class="content-area">
+            
+            <!-- Section 0: About Master (New) -->
+            <div id="about" class="section-card">
+                <h2>About the Master Craftsman</h2>
+                <p>Welcome to Strike Craft. This platform is built on over a decade and a half of relentless pursuit of trophy Northern Pike, Muskie, and Walleye. Every blueprint and advice shared here is born from real trial and error out on open water.</p>
+                <div class="bio-box">
+                    <div class="bio-avatar">🎣</div>
+                    <div>
+                        <h3>Tested by Time, Carved by Hand</h3>
+                        <p>With 15 years of predator angling under my belt, I started carving my own wooden jerkbaits and glidebaits because commercial lures simply couldn't withstand heavy river strikes or deliver that exact custom hanging action required on tough days.</p>
+                    </div>
+                </div>
+
+                <!-- Custom Lures Gallery Showcase (New) -->
+                <h3 style="margin-top: 30px;">Signature Handcrafted Lineup</h3>
+                <div class="showcase-grid">
+                    <div class="showcase-item">
+                        <div class="showcase-img" style="background-image: url('https://images.unsplash.com/photo-1517462964-21fdcec3f25b?auto=format&fit=crop&w=300&q=80')"></div>
+                        <h4>The 'Huron Perch'</h4>
+                        <span>130mm Glidebait</span>
+                    </div>
+                    <div class="showcase-item">
+                        <div class="showcase-img" style="background-image: url('https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=300&q=80')"></div>
+                        <h4>'Zombie Shad'</h4>
+                        <span>110mm Suspender</span>
+                    </div>
+                    <div class="showcase-item">
+                        <div class="showcase-img" style="background-image: url('https://images.unsplash.com/photo-1505594042455-b90294024505?auto=format&fit=crop&w=300&q=80')"></div>
+                        <h4>'Deep Reactor'</h4>
+                        <span>Crankbait</span>
+                    </div>
+                </div>
+            </div>
             
             <!-- Section 1: Tactics -->
             <div id="tactics" class="section-card">
@@ -145,55 +199,96 @@
             <!-- Section 3: Forum -->
             <div id="forum" class="section-card">
                 <h2>Community Forum Discussions</h2>
-                <p>Join the conversation. Share your latest custom catches, discuss carving blueprints, and trade lake strategies.</p>
+                <p>Click on any thread below to read the discussion or answers from fellow builders.</p>
                 <div class="forum-list">
+                    
+                    <!-- Thread 1 -->
                     <div class="forum-thread">
-                        <div class="thread-info">
-                            <h3><strong>Question:</strong> Best lead weight distribution for stable 110mm glidebaits?</h3>
-                            <span class="thread-meta">Started by LureCrafter99 • 2 hours ago</span>
+                        <div class="thread-header" onclick="toggleThread('thread1')">
+                            <div class="thread-info">
+                                <h3>Best lead weight distribution for stable 110mm glidebaits?</h3>
+                                <span class="thread-meta">Started by LureCrafter99 • 2 hours ago</span>
+                            </div>
+                            <span class="thread-replies">2 replies</span>
                         </div>
-                        <span class="thread-replies">14 replies</span>
+                        <div id="thread1" class="thread-content">
+                            <div class="forum-post">
+                                <div class="post-author">LureCrafter99 (Topic Starter):</div>
+                                <div class="post-text">Hey guys, I'm carving a 110mm wooden glidebait but it keeps rolling on faster retrieves. Where should I center the belly weights?</div>
+                            </div>
+                            <div class="forum-post">
+                                <div class="post-author">BaitMaster_Tx:</div>
+                                <div class="post-text">Place 65% of the total ballast weight right in front of the belly hanger hook, and the remaining 35% slightly behind it. Keep it as low as possible near the keel line to stop the roll.</div>
+                            </div>
+                            <div class="forum-post">
+                                <div class="post-author">SaltyAngler:</div>
+                                <div class="post-text">Agreed with BaitMaster. If it still rolls, your line tie eyelet might be slightly off-center. Check that too!</div>
+                            </div>
+                        </div>
                     </div>
+
+                    <!-- Thread 2 -->
                     <div class="forum-thread">
-                        <div class="thread-info">
-                            <h3><strong>Report:</strong> Pike smashing custom perch-colored jerkbaits on Lake Huron</h3>
-                            <span class="thread-meta">Started by AnglerPro_86 • Yesterday</span>
+                        <div class="thread-header" onclick="toggleThread('thread2')">
+                            <div class="thread-info">
+                                <h3>Pike smashing custom perch jerkbaits on Lake Huron</h3>
+                                <span class="thread-meta">Started by AnglerPro_86 • Yesterday</span>
+                            </div>
+                            <span class="thread-replies">1 reply</span>
                         </div>
-                        <span class="thread-replies">28 replies</span>
-                    </div>
-                    <div class="forum-thread">
-                        <div class="thread-info">
-                            <h3><strong>Tip:</strong> Sourcing heavy-duty stainless steel screw eyes for trophy fish</h3>
-                            <span class="thread-meta">Started by CustomBaitCo • 3 days ago</span>
+                        <div id="thread2" class="thread-content">
+                            <div class="forum-post">
+                                <div class="post-author">AnglerPro_86:</div>
+                                <div class="post-text">Took the new airbrushed perch patterns out this morning. Overcast sky. Landed three solid 35+ inch Northern Pikes within an hour. The erratic hang time on the pause is deadly!</div>
+                            </div>
+                            <div class="forum-post">
+                                <div class="post-author">NordicFisher:</div>
+                                <div class="post-text">Nice catches! Did you use a slow-sinking or a perfectly suspending build? Pike here love a dead-stop suspension.</div>
+                            </div>
                         </div>
-                        <span class="thread-replies">7 replies</span>
                     </div>
+
                 </div>
             </div>
 
         </div>
 
-        <!-- Right Column: Sidebar (Sticky Widget) -->
+        <!-- Right Column (Sidebar Sticky) -->
         <div class="sidebar">
-            <div id="selector" class="widget">
-                <h2>Smart Lure Selector</h2>
-                <div class="form-group">
-                    <label for="fish">Target Species</label>
-                    <select id="fish">
-                        <option value="pike">Northern Pike</option>
-                        <option value="bass">Largemouth Bass</option>
-                        <option value="walleye">Walleye</option>
-                    </select>
+            <div class="sidebar-wrapper">
+                
+                <!-- Widget 1: Lure Selector -->
+                <div id="selector" class="widget">
+                    <h2>Smart Lure Selector</h2>
+                    <div class="form-group">
+                        <label for="fish">Target Species</label>
+                        <select id="fish">
+                            <option value="pike">Northern Pike</option>
+                            <option value="bass">Largemouth Bass</option>
+                            <option value="walleye">Walleye</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="weather">Weather Conditions</label>
+                        <select id="weather">
+                            <option value="sunny">Sunny / Clear Water</option>
+                            <option value="cloudy">Overcast / Low Light</option>
+                        </select>
+                    </div>
+                    <button class="btn" onclick="recommendLure()">Match the Hatch</button>
+                    <div id="result" class="result-box"></div>
                 </div>
-                <div class="form-group">
-                    <label for="weather">Weather Conditions</label>
-                    <select id="weather">
-                        <option value="sunny">Sunny / Clear Water</option>
-                        <option value="cloudy">Overcast / Low Light</option>
-                    </select>
+
+                <!-- Widget 2: Newsletter Blueprint Club (New) -->
+                <div class="widget" style="border-left-color: #f2a900;">
+                    <h2>Join the Guild</h2>
+                    <p style="font-size: 14px; margin-bottom: 15px; color: #555;">Get monthly lure carving blueprints and weighting files delivered directly to your email.</p>
+                    <div class="form-group">
+                        <input type="email" class="input-field" placeholder="Enter your email address...">
+                    </div>
+                    <button class="btn" style="background-color: #1b365d; color: white;" onclick="alert('Thank you for joining the Craft!')">Subscribe</button>
                 </div>
-                <button class="btn" onclick="recommendLure()">Match the Hatch</button>
-                <div id="result" class="result-box"></div>
+
             </div>
         </div>
 
@@ -204,11 +299,11 @@
     </footer>
 
     <script>
+        // Lure Selector Logic
         function recommendLure() {
             const fish = document.getElementById('fish').value;
             const weather = document.getElementById('weather').value;
             const resultBox = document.getElementById('result');
-            
             let recommendation = "";
             
             if (fish === "pike") {
@@ -227,6 +322,16 @@
             
             resultBox.innerHTML = recommendation;
             resultBox.style.display = "block";
+        }
+
+        // Forum Interactive Toggle
+        function toggleThread(id) {
+            const content = document.getElementById(id);
+            if (content.style.display === "block") {
+                content.style.display = "none";
+            } else {
+                content.style.display = "block";
+            }
         }
     </script>
 </body>

@@ -147,11 +147,9 @@
     <div class="container">
         <div class="main-wrapper">
             
-            <!-- Main Content Area -->
             <main class="content-main">
                 <article>
                     
-                    <!-- Section: Tactics -->
                     <div id="tactics" class="section-block">
                         <div class="article-meta">Advanced Tactics & Technical Guide</div>
                         <h2>Tactics for Predator Fish: Locating and Engaging Key Species</h2>
@@ -160,7 +158,6 @@
                         <h3>Strategic Ambush Zones</h3>
                         <p>Predatory species like Northern Pike and Trophy Bass are highly efficient hunters. They position themselves along distinct structural edges to minimize energy output while maximizing striking speed.</p>
                         
-                        <!-- FEATURE 1: Ultimate Depth & Clarity Matrix -->
                         <h3>The Target Matrix: Depth & Water Clarity</h3>
                         <table class="matrix-table">
                             <thead>
@@ -194,13 +191,11 @@
                         </table>
                     </div>
 
-                    <!-- Section: DIY Corner (Чертежи и Уголок "Сделай сам") -->
                     <div id="diy-corner" class="section-block">
                         <div class="article-meta">Open-Source Workshop</div>
                         <h2>The DIY Bench: Free Blueprints & Schematics</h2>
                         <p>No paywalls, no shops. Grab the verified carving schematics, printable trace-patterns, and internal weight placements for my signature tournament-winning builds.</p>
                         
-                        <!-- Блоки: Инструменты и Безопасность -->
                         <div class="info-box">
                             <h3 style="margin-top:0; font-size:1.1rem; color: var(--accent-teal);">Essential Workbench Tools</h3>
                             <ul class="info-list">
@@ -241,7 +236,6 @@
                             </div>
                         </div>
 
-                        <!-- Интерактивная фича: Калькулятор огрузки -->
                         <div class="forum-form" style="margin-top: 35px; border-left: 4px solid var(--accent-teal);">
                             <h3 style="margin-top:0; color: var(--primary-blue);">Workbench Tool: Lure Ballast Calculator</h3>
                             <p style="font-size:14px; color: var(--text-muted); margin-bottom: 15px;">Calculate how much lead ballast target weight you roughly need based on your raw wooden blank material to achieve stable balancing.</p>
@@ -265,23 +259,17 @@
                         </div>
                     </div>
 
-                    <!-- Интерактивное Окно Чертежей (MODAL) -->
                     <div id="blueprintModal" class="modal">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <span class="modal-title" id="modalTitle">Lure Blueprint Blueprint</span>
                                 <button class="close-btn" onclick="closeBlueprint()">✕</button>
                             </div>
-                            <div class="blueprint-canvas" id="modalCanvas">
-                                <!-- Сюда JS будет подставлять схемы -->
-                            </div>
-                            <div class="blueprint-specs" id="modalSpecs">
-                                Specs loading...
-                            </div>
+                            <div class="blueprint-canvas" id="modalCanvas"></div>
+                            <div class="blueprint-specs" id="modalSpecs">Specs loading...</div>
                         </div>
                     </div>
 
-                    <!-- Section: Guides -->
                     <div id="guides" class="section-block">
                         <h2>Lure Making & Technical Guides</h2>
                         <p>Explore our deep-dive technical manuals for shaping, weighting, and painting your own handcrafted custom lures.</p>
@@ -301,7 +289,6 @@
                         </div>
                     </div>
 
-                    <!-- Section: Forum -->
                     <div id="forum" class="section-block">
                         <h2>Community Forum Discussions</h2>
                         <p>Click on any thread below to read the discussion, or use the form below to start your own topic dynamically!</p>
@@ -311,24 +298,19 @@
                                 <div class="thread-header" onclick="toggleThread('thread1')">
                                     <div class="thread-info">
                                         <h3>Best lead weight distribution for stable 110mm glidebaits?</h3>
-                                        <span class="thread-meta">Started by LureCrafter99 • 2 hours ago</span>
+                                        <span class="thread-meta">Started by LureCrafter99 • Archive Thread</span>
                                     </div>
-                                    <span class="thread-replies">2 replies</span>
+                                    <span class="thread-replies">Static</span>
                                 </div>
                                 <div id="thread1" class="thread-content">
                                     <div class="forum-post">
                                         <div class="post-author">LureCrafter99 (Topic Starter):</div>
                                         <div class="post-text">Hey guys, I'm carving a 110mm wooden glidebait but it keeps rolling on faster retrieves. Where should I center the belly weights?</div>
                                     </div>
-                                    <div class="forum-post">
-                                        <div class="post-author">BaitMaster_Tx:</div>
-                                        <div class="post-text">Place 65% of the total ballast weight right in front of the belly hanger hook, and the remaining 35% slightly behind it.</div>
-                                    </div>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Interactive Forum Form -->
                         <div class="forum-form">
                             <h3 style="margin-top: 0; margin-bottom: 15px;">Start a New Discussion</h3>
                             <div class="form-group">
@@ -347,7 +329,6 @@
                         </div>
                     </div>
 
-                    <!-- FEATURE 2: E-E-A-T Verified Author Box -->
                     <div class="author-box">
                         <div class="author-avatar">IM</div>
                         <div class="author-info">
@@ -359,9 +340,7 @@
                 </article>
             </main>
 
-            <!-- Sidebar with Widget -->
             <aside class="sidebar">
-                
                 <div class="widget">
                     <h3>Smart Lure Selector</h3>
                     <div class="form-group">
@@ -382,7 +361,6 @@
                     <button class="selector-btn" onclick="findLure()">Get Recommendation</button>
                     <div id="resultBox" class="selector-result"></div>
                 </div>
-
             </aside>
 
         </div>
@@ -394,8 +372,13 @@
         </div>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
-        // Lure Selector Logic
+        const SUPABASE_URL = 'https://fkauskwrxajzzchciaiu.supabase.co';
+        const SUPABASE_ANON_KEY = 'sb_publishable_KvGWqEPhIb9oD-DZOdOgtA_MYFXzeCa';
+
+        const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
         function findLure() {
             const target = document.getElementById('target').value;
             const weather = document.getElementById('weather').value;
@@ -405,111 +388,154 @@
             resultBox.style.display = 'block';
         }
 
-        // Интерактивные схемы (SVG графика)
         const blueprintsData = {
             perch: {
                 title: "TECHNICAL SPEC: THE 'HURON PERCH' (130mm GLIDEBAIT)",
-                svg: `<svg width="260" height="100" viewBox="0 0 260 100">
-                        <path d="M10,50 Q70,10 140,30 T250,50 Q180,85 110,80 T10,50 Z" fill="none" stroke="#6fa8dc" stroke-width="2" stroke-dasharray="4"/>
-                        <circle cx="100" cy="65" r="8" fill="#f1c232" stroke="#fff" />
-                        <text x="92" y="45" fill="#fff" font-size="10">Ballast A</text>
-                        <circle cx="170" cy="60" r="6" fill="#f1c232" stroke="#fff" />
-                        <text x="160" y="45" fill="#fff" font-size="10">Ballast B</text>
-                        <circle cx="20" cy="50" r="3" fill="none" stroke="#6fa8dc" stroke-width="2"/>
-                        <circle cx="120" cy="78" r="3" fill="none" stroke="#6fa8dc" stroke-width="2"/>
-                      </svg>`,
+                svg: `<svg width="260" height="100" viewBox="0 0 260 100"><path d="M10,50 Q70,10 140,30 T250,50 Q180,85 110,80 T10,50 Z" fill="none" stroke="#6fa8dc" stroke-width="2" stroke-dasharray="4"/><circle cx="100" cy="65" r="8" fill="#f1c232" stroke="#fff" /><text x="92" y="45" fill="#fff" font-size="10">Ballast A</text><circle cx="170" cy="60" r="6" fill="#f1c232" stroke="#fff" /><text x="160" y="45" fill="#fff" font-size="10">Ballast B</text><circle cx="20" cy="50" r="3" fill="none" stroke="#6fa8dc" stroke-width="2"/><circle cx="120" cy="78" r="3" fill="none" stroke="#6fa8dc" stroke-width="2"/></svg>`,
                 specs: "<strong>Length:</strong> 130mm | <strong>Material:</strong> Red Cedar target profile.<br><strong>Ballast Layout:</strong> Split setup. Insert 60% lead in Front Ventral slot (Ballast A) and 40% in Mid-Rear cavity (Ballast B). Provides the signature slow S-curve swimming dynamic."
             },
             shad: {
                 title: "TECHNICAL SPEC: 'ZOMBIE SHAD' (110mm SUSPENDING MINNOW)",
-                svg: `<svg width="240" height="100" viewBox="0 0 240 100">
-                        <path d="M10,45 Q60,15 130,25 T230,45 Q160,75 100,70 T10,45 Z" fill="none" stroke="#6fa8dc" stroke-width="2" stroke-dasharray="4"/>
-                        <circle cx="85" cy="55" r="10" fill="#f1c232" stroke="#fff" />
-                        <text x="65" y="35" fill="#fff" font-size="10">Center Ballast</text>
-                        <circle cx="15" cy="45" r="3" fill="none" stroke="#6fa8dc" stroke-width="2"/>
-                        <path d="M22,55 L35,75" stroke="#6fa8dc" stroke-width="3" fill="none" />
-                        <text x="38" y="80" fill="#6fa8dc" font-size="10">Lip Edge</text>
-                      </svg>`,
+                svg: `<svg width="240" height="100" viewBox="0 0 240 100"><path d="M10,45 Q60,15 130,25 T230,45 Q160,75 100,70 T10,45 Z" fill="none" stroke="#6fa8dc" stroke-width="2" stroke-dasharray="4"/><circle cx="85" cy="55" r="10" fill="#f1c232" stroke="#fff" /><text x="65" y="35" fill="#fff" font-size="10">Center Ballast</text><circle cx="15" cy="45" r="3" fill="none" stroke="#6fa8dc" stroke-width="2"/><path d="M22,55 L35,75" stroke="#6fa8dc" stroke-width="3" fill="none" /><text x="38" y="80" fill="#6fa8dc" font-size="10">Lip Edge</text></svg>`,
                 specs: "<strong>Length:</strong> 110mm | <strong>Material:</strong> Balsa Wood for high reaction float.<br><strong>Ballast Layout:</strong> Centered heavy ballast directly surrounding the belly hook hanger. Calibrated to offset balsa buoyancy for dead-stop water suspension."
             },
             crank: {
                 title: "TECHNICAL SPEC: 'DEEP REACTOR' (SQUAREBILL CRANKBAIT)",
-                svg: `<svg width="200" height="100" viewBox="0 0 200 100">
-                        <path d="M15,50 Q50,10 110,25 T190,50 Q130,90 80,85 T15,50 Z" fill="none" stroke="#6fa8dc" stroke-width="2" stroke-dasharray="4"/>
-                        <circle cx="70" cy="65" r="12" fill="#f1c232" stroke="#fff" />
-                        <text x="50" y="40" fill="#fff" font-size="10">Low Ballast</text>
-                        <path d="M25,60 L5,90" stroke="#fff" stroke-width="4" fill="none" />
-                        <text x="8" y="98" fill="#fff" font-size="10">Square Lip</text>
-                      </svg>`,
+                svg: `<svg width="200" height="100" viewBox="0 0 200 100"><path d="M15,50 Q50,10 110,25 T190,50 Q130,90 80,85 T15,50 Z" fill="none" stroke="#6fa8dc" stroke-width="2" stroke-dasharray="4"/><circle cx="70" cy="65" r="12" fill="#f1c232" stroke="#fff" /><text x="50" y="40" fill="#fff" font-size="10">Low Ballast</text><path d="M25,60 L5,90" stroke="#fff" stroke-width="4" fill="none" /><text x="8" y="98" fill="#fff" font-size="10">Square Lip</text></svg>`,
                 specs: "<strong>Length:</strong> 75mm (Fat profile) | <strong>Material:</strong> White Pine / Cedar.<br><strong>Ballast Layout:</strong> Single ultra-low focal point ballast to ensure high roll stability and immediate deflection memory when impacting underwater rock structures."
             }
         };
 
         function openBlueprint(type) {
             const data = blueprintsData[type];
-            document.getElementById('modalTitle').innerText = data.title;
-            document.getElementById('modalCanvas').innerHTML = data.svg;
-            document.getElementById('modalSpecs').innerHTML = data.specs;
-            document.getElementById('blueprintModal').style.display = 'flex';
+            if(data) {
+                document.getElementById('modalTitle').innerText = data.title;
+                document.getElementById('modalCanvas').innerHTML = data.svg;
+                document.getElementById('modalSpecs').innerHTML = data.specs;
+                document.getElementById('blueprintModal').style.display = 'flex';
+            }
         }
 
         function closeBlueprint() {
             document.getElementById('blueprintModal').style.display = 'none';
         }
 
-        // Закрытие по клику вне модалки
-        window.onclick = function(event) {
-            const modal = document.getElementById('blueprintModal');
-            if (event.target == modal) { modal.style.display = 'none'; }
+        function toggleThread(id) {
+            const content = document.getElementById(id);
+            if(content.style.display === 'block') {
+                content.style.display = 'none';
+            } else {
+                content.style.display = 'block';
+            }
         }
 
-        // Lure Ballast Calculator Logic
         function calculateBallast() {
             const wood = document.getElementById('woodType').value;
-            const weight = parseFloat(document.getElementById('blankWeight').value);
-            const resBox = document.getElementById('ballastResult');
+            const weight = parseFloat(document.getElementById('blankWeight').value) || 0;
+            let factor = 0.5;
+            if (wood === 'balsa') factor = 1.2;
+            if (wood === 'cedar') factor = 0.7;
             
-            if(!weight || weight <= 0) {
-                alert("Please enter a valid blank weight!");
+            const result = Math.round(weight * factor);
+            const resultBox = document.getElementById('ballastResult');
+            resultBox.innerHTML = `⚖️ Estimated Required Lead Ballast: ~<strong>${result}g</strong> for optimal balancing.`;
+            resultBox.style.display = 'block';
+        }
+
+        async function loadPosts() {
+            const container = document.getElementById('forumContainer');
+            
+            const { data: posts, error } = await supabase
+                .from('forum_posts')
+                .select('*')
+                .order('created_at', { ascending: false });
+
+            if (error) {
+                console.error('Error loading posts:', error);
                 return;
             }
 
-            let leadNeeded = 0;
-            if(wood === 'balsa') {
-                leadNeeded = (weight * 1.2).toFixed(1);
-            } else if(wood === 'cedar') {
-                leadNeeded = (weight * 0.7).toFixed(1);
-            } else {
-                leadNeeded = (weight * 0.4).toFixed(1);
+            container.innerHTML = `
+                <div class="forum-thread">
+                    <div class="thread-header" onclick="toggleThread('thread1')">
+                        <div class="thread-info">
+                            <h3>Best lead weight distribution for stable 110mm glidebaits?</h3>
+                            <span class="thread-meta">Started by LureCrafter99 • Archive Thread</span>
+                        </div>
+                        <span class="thread-replies">Static</span>
+                    </div>
+                    <div id="thread1" class="thread-content">
+                        <div class="forum-post">
+                            <div class="post-author">LureCrafter99 (Topic Starter):</div>
+                            <div class="post-text">Hey guys, I'm carving a 110mm wooden glidebait but it keeps rolling on faster retrieves. Where should I center the belly weights?</div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            posts.forEach(post => {
+                const date = new Date(post.created_at).toLocaleString();
+                const postHTML = `
+                    <div class="forum-thread">
+                        <div class="thread-header" onclick="toggleThread('post-${post.id}')">
+                            <div class="thread-info">
+                                <h3>${escapeHTML(post.title)}</h3>
+                                <span class="thread-meta">Posted by <strong>${escapeHTML(post.username)}</strong> • ${date}</span>
+                            </div>
+                            <span class="thread-replies">Open</span>
+                        </div>
+                        <div id="post-${post.id}" class="thread-content" style="display: block;">
+                            <div class="forum-post">
+                                <div class="post-text">${escapeHTML(post.message)}</div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                container.innerHTML += postHTML;
+            });
+        }
+
+        async function addNewThread() {
+            const username = document.getElementById('forumUser').value.trim();
+            const title = document.getElementById('forumTopic').value.trim();
+            const message = document.getElementById('forumText').value.trim();
+
+            if (!username || !title || !message) {
+                alert('Please fill in all fields!');
+                return;
             }
 
-            resBox.innerHTML = `⚖️ <strong>Estimated Lead Ballast:</strong> ~${leadNeeded}g total weight.<br><span style="font-size:12px; font-weight:normal; color:#718096;">Split: 60% near belly hook, 40% near tail/center for standard sinking action.</span>`;
-            resBox.style.display = 'block';
+            const { error } = await supabase
+                .from('forum_posts')
+                .insert([{ username, title, message }]);
+
+            if (error) {
+                alert('Error sending message: ' + error.message);
+                console.error(error);
+            } else {
+                document.getElementById('forumUser').value = '';
+                document.getElementById('forumTopic').value = '';
+                document.getElementById('forumText').value = '';
+                loadPosts();
+            }
         }
 
-        function toggleThread(id) {
-            const content = document.getElementById(id);
-            content.style.display = content.style.display === "block" ? "none" : "block";
+        function escapeHTML(str) {
+            return str.replace(/[&<>'"]/g, 
+                tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag)
+            );
         }
 
-        function addNewThread() {
-            const user = document.getElementById('forumUser').value.trim();
-            const topic = document.getElementById('forumTopic').value.trim();
-            const text = document.getElementById('forumText').value.trim();
-            if (!user || !topic || !text) { alert("Fill all fields!"); return; }
+        window.onload = function() {
+            loadPosts();
             
-            const currentId = "thread" + Math.random();
-            const newThreadHTML = `
-                <div class="forum-thread">
-                    <div class="thread-header" onclick="toggleThread('${currentId}')">
-                        <div class="thread-info"><h3>${topic}</h3><span class="thread-meta">By ${user} • Just now</span></div>
-                        <span class="thread-replies">0 replies</span>
-                    </div>
-                    <div id="${currentId}" class="thread-content"><div class="forum-post"><div class="post-author">${user}:</div><div class="post-text">${text}</div></div></div>
-                </div>`;
-            document.getElementById('forumContainer').insertAdjacentHTML('beforeend', newThreadHTML);
-            document.getElementById('forumUser').value = ""; document.getElementById('forumTopic').value = ""; document.getElementById('forumText').value = "";
-        }
+            supabase
+                .channel('schema-db-changes')
+                .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'forum_posts' }, payload => {
+                    loadPosts();
+                })
+                .subscribe();
+        };
     </script>
 </body>
 </html>

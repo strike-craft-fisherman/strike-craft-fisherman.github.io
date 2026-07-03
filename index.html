@@ -3,200 +3,154 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Strike Craft Fisherman | Professional Angling & Gear Insights</title>
+    <title>Strike Craft — Handcrafted Lures & Fishing Tactics</title>
     <style>
-        body, h1, h2, h3, p, ul, li { margin: 0; padding: 0; }
-        body { font-family: 'Open Sans', sans-serif; background-color: #ffffff; color: #1a1a1a; line-height: 1.6; }
-        a { text-decoration: none; color: inherit; }
-        ul { list-style: none; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #f4f7f6; color: #333; line-height: 1.6; }
+        header { background-color: #1b365d; color: white; padding: 20px 0; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .container { width: 90%; max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 24px; font-weight: bold; color: #f2a900; text-decoration: none; letter-spacing: 1px; }
+        nav a { color: white; text-decoration: none; margin-left: 20px; font-weight: 500; transition: color 0.3s; }
+        nav a:hover { color: #f2a900; }
         
-        :root {
-            --primary-blue: #0f2537;
-            --accent-teal: #1c7c7c;
-            --bg-grey: #f8f9fa;
-            --border-color: #e3e6ec;
-            --text-main: #2d3748;
-            --text-muted: #718096;
-        }
-
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        .hero { background: linear-gradient(rgba(27, 54, 93, 0.8), rgba(27, 54, 93, 0.8)), url('https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=1200&q=80') no-repeat center center/cover; color: white; padding: 80px 0; text-align: center; }
+        .hero h1 { font-size: 42px; margin-bottom: 10px; }
+        .hero p { font-size: 18px; color: #f2a900; font-weight: 500; }
         
-        /* Header */
-        header { background-color: #ffffff; padding: 25px 0; border-bottom: 1px solid var(--border-color); }
-        header .container { display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-size: 1.8rem; font-weight: 800; color: var(--primary-blue); letter-spacing: 1px; }
-        .nav { display: flex; gap: 25px; }
-        .nav a { font-weight: 600; color: var(--text-muted); font-size: 0.9rem; text-transform: uppercase; transition: color 0.2s; }
-        .nav a:hover { color: var(--accent-teal); }
-
-        /* Main Layout */
-        .main-wrapper { display: flex; gap: 40px; padding: 40px 0; }
-        .content-main { flex: 2.5; }
-        .sidebar { flex: 1.2; display: flex; flex-direction: column; gap: 30px; }
-
-        /* Article Styles */
-        .article-meta { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 10px; font-weight: 600; text-transform: uppercase; }
-        h1.article-title { font-size: 2.5rem; color: var(--primary-blue); margin-bottom: 25px; font-weight: 800; line-height: 1.2; }
-        h2 { font-size: 1.6rem; color: var(--primary-blue); margin: 35px 0 15px 0; font-weight: 700; }
-        p { margin-bottom: 20px; color: var(--text-main); font-size: 1.05rem; }
-
-        /* Feature 1: Ultimate Depth Matrix Table */
-        .matrix-table { width: 100%; border-collapse: collapse; margin: 25px 0; font-size: 0.95rem; }
-        .matrix-table th, .matrix-table td { padding: 12px 15px; text-align: left; border: 1px solid var(--border-color); }
-        .matrix-table th { background-color: var(--primary-blue); color: white; font-weight: 600; }
-        .matrix-table tr:nth-child(even) { background-color: var(--bg-grey); }
-
-        /* Feature 2: E-E-A-T Author Box */
-        .author-box { display: flex; gap: 20px; background-color: var(--bg-grey); padding: 25px; border-radius: 6px; border-left: 5px solid var(--accent-teal); margin-top: 50px; }
-        .author-avatar { width: 70px; height: 70px; background-color: #cbd5e0; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; color: white; font-size: 1.5rem; }
-        .author-info h4 { font-size: 1.1rem; color: var(--primary-blue); margin-bottom: 5px; }
-        .author-badge { background-color: var(--accent-teal); color: white; font-size: 0.75rem; padding: 2px 8px; border-radius: 10px; margin-left: 10px; vertical-align: middle; }
-        .author-bio { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 0; }
-
-        /* Feature 3: Interactive Lure Selector Widget */
-        .widget { background-color: var(--bg-grey); padding: 25px; border-radius: 6px; border: 1px solid var(--border-color); }
-        .widget h3 { font-size: 1.1rem; color: var(--primary-blue); margin-bottom: 15px; text-transform: uppercase; font-weight: 700; border-bottom: 2px solid var(--border-color); padding-bottom: 8px; }
+        .main-layout { display: flex; flex-wrap: wrap; gap: 30px; margin: 40px auto; width: 90%; max-width: 1200px; }
+        .content-area { flex: 2; min-width: 300px; }
+        .sidebar { flex: 1; min-width: 300px; }
+        
+        .section-card { background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); margin-bottom: 30px; scroll-margin-top: 100px; }
+        h2 { color: #1b365d; margin-bottom: 20px; border-bottom: 2px solid #f2a900; padding-bottom: 5px; }
+        
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }
+        th { background-color: #1b365d; color: white; }
+        tr:hover { background-color: #f9f9f9; }
+        
+        .widget { background: #eef3f7; padding: 25px; border-radius: 8px; border-left: 5px solid #1b365d; scroll-margin-top: 100px; }
         .form-group { margin-bottom: 15px; }
-        .form-group label { display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 5px; color: var(--text-main); }
-        .form-group select { width: 100%; padding: 10px; border: 1px solid var(--border-color); border-radius: 4px; background-color: white; font-size: 0.9rem; }
-        .selector-btn { width: 100%; padding: 12px; background-color: var(--accent-teal); color: white; border: none; border-radius: 4px; font-weight: 600; cursor: pointer; transition: background 0.2s; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 0.5px; }
-        .selector-btn:hover { background-color: var(--primary-blue); }
-        .selector-result { margin-top: 15px; padding: 12px; background-color: #fff; border-radius: 4px; border-left: 3px solid var(--accent-teal); display: none; font-size: 0.9rem; font-weight: 600; color: var(--primary-blue); }
-
-        footer { background-color: var(--primary-blue); color: #ffffff; padding: 40px 0; text-align: center; font-size: 0.85rem; margin-top: 60px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; color: #1b365d; }
+        select { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 16px; background-color: white; }
+        .btn { display: inline-block; background: #f2a900; color: #1b365d; padding: 12px 20px; border: none; border-radius: 4px; font-weight: bold; cursor: pointer; width: 100%; font-size: 16px; transition: background 0.3s; margin-top: 10px; }
+        .btn:hover { background: #d49200; }
+        .result-box { margin-top: 20px; padding: 15px; background: white; border-radius: 4px; border: 1px dashed #1b365d; display: none; font-weight: 500; text-align: center; color: #1b365d; line-height: 1.4; }
+        
+        footer { background: #1b365d; color: white; text-align: center; padding: 20px 0; margin-top: 40px; font-size: 14px; }
     </style>
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
 
     <header>
         <div class="container">
             <a href="#" class="logo">STRIKE CRAFT</a>
-            <ul class="nav">
-    <li><a href="#tactics-section">Tactics</a></li>
-    <li><a href="#lure-calculator">Lure Selector</a></li>
-    <li><a href="#">Guides</a></li>
-    <li><a href="#">Forum</a></li>
-</ul>
+            <nav>
+                <a href="#tactics">Tactics</a>
+                <a href="#selector">Lure Selector</a>
+                <a href="#">Guides</a>
+                <a href="#">Forum</a>
+            </nav>
         </div>
     </header>
 
-    <div class="container">
-        <div class="main-wrapper">
-            
-            <!-- Main Content Area -->
-            <main class="content-main" id="tactics-section">
-                <article>
-                    <div class="article-meta">Advanced Tactics | Technical Guide</div>
-                    <h1 class="article-title">Tactics for Predator Fish: Locating and Engaging Key Species</h1>
-                    
-                    <p>To consistently land elite freshwater predators, an angler must move past guesswork. Success relies heavily on understanding how shifting water parameters and structural boundaries dictate predatory hunting cycles.</p>
-                    
-                    <h2>Strategic Ambush Zones</h2>
-                    <p>Predatory species like Northern Pike and Trophy Bass are highly efficient hunters. They position themselves along distinct structural edges to minimize energy output while maximizing striking speed. Key environments to target include deep weed lines, submerged timber structures, and sharp drop-offs near shallow feeding flats.</p>
-                    
-                    <!-- FEATURE 1: Ultimate Depth & Clarity Matrix -->
-                    <h2>The Target Matrix: Depth & Water Clarity</h2>
-                    <table class="matrix-table">
-                        <thead>
-                            <tr>
-                                <th>Water Condition</th>
-                                <th>Depth Zone</th>
-                                <th>Predator Behavior</th>
-                                <th>Presentation Strategy</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Heavy Stain / Muddy</td>
-                                <td>Shallow (1-3 ft)</td>
-                                <td>Tight to heavy cover, relying on vibration</td>
-                                <td>Aggressive thumping, dark profile lures</td>
-                            </tr>
-                            <tr>
-                                <td>Clear / High Visibility</td>
-                                <td>Deep Edge (8-15 ft)</td>
-                                <td>Suspended, visually tracking prey over distance</td>
-                                <td>Natural finishes, erratic high-speed retrieves</td>
-                            </tr>
-                            <tr>
-                                <td>Low-Light / Overcast</td>
-                                <td>Mid-Range (4-8 ft)</td>
-                                <td>Actively patrolling transition structures</td>
-                                <td>Steady tracking, medium-depth diving minnows</td>
-                            </tr>
-                        </tbody>
-                    </table>
+    <section class="hero">
+        <h1>Handcrafted Lures & Fishing Tactics</h1>
+        <p>Mastering the Art of Lure Making and Predator Fishing Strategies</p>
+    </section>
 
-                    <p>By mapping your target area against these specific environmental variables, you can eliminate non-productive water quickly and establish a pattern that delivers results across any international venue.</p>
-                    
-                    <!-- FEATURE 2: E-E-A-T Verified Author Box -->
-                    <div class="author-box">
-                        <div class="author-avatar">IM</div>
-                        <div class="author-info">
-                            <h4>Ian Miller <span class="author-badge">Verified Expert</span></h4>
-                            <p class="author-bio">Ian is an international pro angler and lure design consultant with over 15 years of tournament experience specializing in apex predator habits and tracking systems.</p>
-                        </div>
-                    </div>
+    <div class="main-layout">
+        <!-- Left Column: Tactics -->
+        <div class="content-area">
+            <div id="tactics" class="section-card">
+                <h2>Fishing Tactics</h2>
+                <p>Choosing the right strategy depends heavily on the season, water clarity, and predator activity. Use this quick reference guide for target species:</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Species</th>
+                            <th>Depth</th>
+                            <th>Best Time</th>
+                            <th>Primary Lure Type</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><b>Northern Pike</b></td>
+                            <td>1.5 – 3 m</td>
+                            <td>Morning / Overcast</td>
+                            <td>Jerkbaits, Heavy Soft Plastics</td>
+                        </tr>
+                        <tr>
+                            <td><b>Largemouth Bass</b></td>
+                            <td>0.5 – 2 m</td>
+                            <td>Evening / Dusk</td>
+                            <td>Poppers, Minnow Hardbaits</td>
+                        </tr>
+                        <tr>
+                            <td><b>Walleye</b></td>
+                            <td>4 – 8 m</td>
+                            <td>Night / Twilight</td>
+                            <td>Jigs, Deep Diving Crankbaits</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
 
-                </article>
-            </main>
-
-            <!-- Sidebar with Widget -->
-            <aside class="sidebar">
-                
-                <!-- FEATURE 3: Interactive Lure Selector Widget -->
-                <div class="widget" id="lure-calculator">
-                    <h3>Smart Lure Selector</h3>
-                    <div class="form-group">
-                        <label for="target">Target Species</label>
-                        <select id="target">
-                            <option value="pike">Northern Pike</option>
-                            <option value="bass">Largemouth Bass</option>
-                            <option value="walleye">Walleye</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="weather">Weather Condition</label>
-                        <select id="weather">
-                            <option value="sunny">Bright / Sunny</option>
-                            <option value="cloudy">Overcast / Dark</option>
-                        </select>
-                    </div>
-                    <button class="selector-btn" onclick="findLure()">Get Recommendation</button>
-                    <div id="resultBox" class="selector-result"></div>
+        <!-- Right Column: Smart Lure Selector -->
+        <div class="sidebar">
+            <div id="selector" class="widget">
+                <h2>Smart Lure Selector</h2>
+                <div class="form-group">
+                    <label for="fish">Target Species</label>
+                    <select id="fish">
+                        <option value="pike">Northern Pike</option>
+                        <option value="bass">Largemouth Bass</option>
+                        <option value="walleye">Walleye</option>
+                    </select>
                 </div>
-
-            </aside>
-
+                <div class="form-group">
+                    <label for="weather">Weather Conditions</label>
+                    <select id="weather">
+                        <option value="sunny">Sunny / Clear Water</option>
+                        <option value="cloudy">Overcast / Low Light</option>
+                    </select>
+                </div>
+                <button class="btn" onclick="recommendLure()">Match the Hatch</button>
+                <div id="result" class="result-box"></div>
+            </div>
         </div>
     </div>
 
     <footer>
-        <div class="container">
-            <p>© 2027 Strike Craft Fisherman. All rights reserved. International English Edition.</p>
-        </div>
+        <p>© 2026 Strike Craft Fisherman. All rights reserved.</p>
     </footer>
 
-    <!-- Interactive Widget Logic -->
     <script>
-        function findLure() {
-            const target = document.getElementById('target').value;
+        function recommendLure() {
+            const fish = document.getElementById('fish').value;
             const weather = document.getElementById('weather').value;
-            const resultBox = document.getElementById('resultBox');
+            const resultBox = document.getElementById('result');
             
             let recommendation = "";
             
-            if(target === 'pike') {
-                recommendation = weather === 'sunny' ? "🎯 Recommendation: Strike-Craft Shad 5-inch (Silver Flash)" : "🎯 Recommendation: Strike-Craft Shad 5-inch (Firetiger)";
-            } else if(target === 'bass') {
-                recommendation = weather === 'sunny' ? "🎯 Recommendation: Ghost Minnow Deep Diver" : "🎯 Recommendation: Surface Commando Popper (Black/Gold)";
-            } else {
-                recommendation = "🎯 Recommendation: Rattlin' Craw (Natural Brown) - Slow Bottom Roll";
+            if (fish === "pike") {
+                recommendation = weather === "sunny" 
+                    ? "<strong>Recommended:</strong> 130mm natural minnow jerkbait or bright silver spoon lures." 
+                    : "<strong>Recommended:</strong> High-contrast chartreuse jerkbait or dark, oversized soft plastics.";
+            } else if (fish === "bass") {
+                recommendation = weather === "sunny" 
+                    ? "<strong>Recommended:</strong> Topwater popper or natural shad-colored shallow crankbait." 
+                    : "<strong>Recommended:</strong> Dark-skirted spinnerbait or Texas-rigged soft craws.";
+            } else if (fish === "walleye") {
+                recommendation = weather === "sunny" 
+                    ? "<strong>Recommended:</strong> Traditional jig head with pumpkinseed/green flake soft baits along drop-offs." 
+                    : "<strong>Recommended:</strong> Glow-in-the-dark soft plastics or deep-diving neon crankbaits.";
             }
             
-            resultBox.innerText = recommendation;
-            resultBox.style.display = 'block';
+            resultBox.innerHTML = recommendation;
+            resultBox.style.display = "block";
         }
     </script>
 </body>

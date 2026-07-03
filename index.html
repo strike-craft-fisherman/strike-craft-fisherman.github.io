@@ -6,38 +6,60 @@
     <title>Strike Craft — Handcrafted Lures & Fishing Tactics</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        html { scroll-behavior: smooth; }
         body { background-color: #f4f7f6; color: #333; line-height: 1.6; }
+        
+        /* Navigation */
         header { background-color: #1b365d; color: white; padding: 20px 0; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        .container { width: 90%; max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+        .container { width: 90%; max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; }
         .logo { font-size: 24px; font-weight: bold; color: #f2a900; text-decoration: none; letter-spacing: 1px; }
         nav a { color: white; text-decoration: none; margin-left: 20px; font-weight: 500; transition: color 0.3s; }
         nav a:hover { color: #f2a900; }
         
-        .hero { background: linear-gradient(rgba(27, 54, 93, 0.8), rgba(27, 54, 93, 0.8)), url('https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=1200&q=80') no-repeat center center/cover; color: white; padding: 80px 0; text-align: center; }
-        .hero h1 { font-size: 42px; margin-bottom: 10px; }
-        .hero p { font-size: 18px; color: #f2a900; font-weight: 500; }
+        /* Hero Section */
+        .hero { background: linear-gradient(rgba(27, 54, 93, 0.85), rgba(27, 54, 93, 0.85)), url('https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=1200&q=80') no-repeat center center/cover; color: white; padding: 100px 0; text-align: center; }
+        .hero h1 { font-size: 46px; margin-bottom: 15px; letter-spacing: 1px; }
+        .hero p { font-size: 20px; color: #f2a900; font-weight: 500; }
         
+        /* Main Layout */
         .main-layout { display: flex; flex-wrap: wrap; gap: 30px; margin: 40px auto; width: 90%; max-width: 1200px; }
         .content-area { flex: 2; min-width: 300px; }
         .sidebar { flex: 1; min-width: 300px; }
         
-        .section-card { background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); margin-bottom: 30px; scroll-margin-top: 100px; }
-        h2 { color: #1b365d; margin-bottom: 20px; border-bottom: 2px solid #f2a900; padding-bottom: 5px; }
+        /* Structural Cards */
+        .section-card { background: white; padding: 35px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); margin-bottom: 40px; scroll-margin-top: 90px; }
+        h2 { color: #1b365d; margin-bottom: 20px; border-bottom: 2px solid #f2a900; padding-bottom: 8px; font-size: 28px; }
+        h3 { color: #1b365d; margin-bottom: 10px; }
         
+        /* Tactics Table */
         table { width: 100%; border-collapse: collapse; margin-top: 15px; }
-        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }
-        th { background-color: #1b365d; color: white; }
+        th, td { padding: 14px; text-align: left; border-bottom: 1px solid #ddd; }
+        th { background-color: #1b365d; color: white; font-weight: 600; }
         tr:hover { background-color: #f9f9f9; }
         
-        .widget { background: #eef3f7; padding: 25px; border-radius: 8px; border-left: 5px solid #1b365d; scroll-margin-top: 100px; }
-        .form-group { margin-bottom: 15px; }
-        label { display: block; margin-bottom: 5px; font-weight: bold; color: #1b365d; }
-        select { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 16px; background-color: white; }
-        .btn { display: inline-block; background: #f2a900; color: #1b365d; padding: 12px 20px; border: none; border-radius: 4px; font-weight: bold; cursor: pointer; width: 100%; font-size: 16px; transition: background 0.3s; margin-top: 10px; }
-        .btn:hover { background: #d49200; }
-        .result-box { margin-top: 20px; padding: 15px; background: white; border-radius: 4px; border: 1px dashed #1b365d; display: none; font-weight: 500; text-align: center; color: #1b365d; line-height: 1.4; }
+        /* Guides Grid */
+        .guides-grid { display: grid; grid-template-columns: 1px 1px; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 20px; }
+        .guide-item { background: #f8fafd; border: 1px solid #e1e8ed; padding: 20px; border-radius: 6px; }
+        .guide-item p { font-size: 14px; color: #666; margin-top: 5px; }
         
-        footer { background: #1b365d; color: white; text-align: center; padding: 20px 0; margin-top: 40px; font-size: 14px; }
+        /* Forum List */
+        .forum-list { margin-top: 20px; }
+        .forum-thread { display: flex; justify-content: space-between; padding: 15px; background: #fff; border: 1px solid #e1e8ed; border-radius: 6px; margin-bottom: 10px; transition: transform 0.2s; }
+        .forum-thread:hover { transform: translateX(5px); border-color: #f2a900; }
+        .thread-info { display: flex; flex-direction: column; }
+        .thread-meta { font-size: 12px; color: #888; margin-top: 4px; }
+        .thread-replies { background: #eef3f7; padding: 5px 12px; border-radius: 20px; font-size: 13px; font-weight: bold; color: #1b365d; align-self: center; }
+        
+        /* Widget & Calculator */
+        .widget { background: #eef3f7; padding: 30px; border-radius: 8px; border-left: 5px solid #1b365d; position: sticky; top: 110px; scroll-margin-top: 110px; }
+        .form-group { margin-bottom: 20px; }
+        label { display: block; margin-bottom: 8px; font-weight: bold; color: #1b365d; }
+        select { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 4px; font-size: 16px; background-color: white; }
+        .btn { display: inline-block; background: #f2a900; color: #1b365d; padding: 14px 20px; border: none; border-radius: 4px; font-weight: bold; cursor: pointer; width: 100%; font-size: 16px; transition: background 0.3s; margin-top: 10px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .btn:hover { background: #d49200; }
+        .result-box { margin-top: 20px; padding: 15px; background: white; border-radius: 4px; border: 1px dashed #1b365d; display: none; font-weight: 500; text-align: center; color: #1b365d; line-height: 1.5; }
+        
+        footer { background: #1b365d; color: white; text-align: center; padding: 25px 0; margin-top: 60px; font-size: 14px; }
     </style>
 </head>
 <body>
@@ -48,8 +70,8 @@
             <nav>
                 <a href="#tactics">Tactics</a>
                 <a href="#selector">Lure Selector</a>
-                <a href="#">Guides</a>
-                <a href="#">Forum</a>
+                <a href="#guides">Guides</a>
+                <a href="#forum">Forum</a>
             </nav>
         </div>
     </header>
@@ -60,10 +82,13 @@
     </section>
 
     <div class="main-layout">
-        <!-- Left Column: Tactics -->
+        
+        <!-- Left Column: Content Area -->
         <div class="content-area">
+            
+            <!-- Section 1: Tactics -->
             <div id="tactics" class="section-card">
-                <h2>Fishing Tactics</h2>
+                <h2>Predator Fishing Tactics</h2>
                 <p>Choosing the right strategy depends heavily on the season, water clarity, and predator activity. Use this quick reference guide for target species:</p>
                 <table>
                     <thead>
@@ -96,9 +121,59 @@
                     </tbody>
                 </table>
             </div>
+
+            <!-- Section 2: Guides -->
+            <div id="guides" class="section-card">
+                <h2>Lure Making & Technical Guides</h2>
+                <p>Explore our deep-dive technical manuals for shaping, weighting, and painting your own handcrafted custom lures.</p>
+                <div class="guides-grid">
+                    <div class="guide-item">
+                        <h3>Carving Wooden Jerkbaits</h3>
+                        <p>A step-by-step walkthrough on selecting the best balsa or cedar wood, profiling, and balancing internal weights.</p>
+                    </div>
+                    <div class="guide-item">
+                        <h3>Airbrushing Real Scale Patterns</h3>
+                        <p>Advanced techniques using mesh netting and stencils to create lifelike perch and shad skin textures.</p>
+                    </div>
+                    <div class="guide-item">
+                        <h3>Epoxy Coating Masterclass</h3>
+                        <p>How to apply clear coats smoothly without sagging, bubbles, or losing the action of the bait.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 3: Forum -->
+            <div id="forum" class="section-card">
+                <h2>Community Forum Discussions</h2>
+                <p>Join the conversation. Share your latest custom catches, discuss carving blueprints, and trade lake strategies.</p>
+                <div class="forum-list">
+                    <div class="forum-thread">
+                        <div class="thread-info">
+                            <h3><strong>Question:</strong> Best lead weight distribution for stable 110mm glidebaits?</h3>
+                            <span class="thread-meta">Started by LureCrafter99 • 2 hours ago</span>
+                        </div>
+                        <span class="thread-replies">14 replies</span>
+                    </div>
+                    <div class="forum-thread">
+                        <div class="thread-info">
+                            <h3><strong>Report:</strong> Pike smashing custom perch-colored jerkbaits on Lake Huron</h3>
+                            <span class="thread-meta">Started by AnglerPro_86 • Yesterday</span>
+                        </div>
+                        <span class="thread-replies">28 replies</span>
+                    </div>
+                    <div class="forum-thread">
+                        <div class="thread-info">
+                            <h3><strong>Tip:</strong> Sourcing heavy-duty stainless steel screw eyes for trophy fish</h3>
+                            <span class="thread-meta">Started by CustomBaitCo • 3 days ago</span>
+                        </div>
+                        <span class="thread-replies">7 replies</span>
+                    </div>
+                </div>
+            </div>
+
         </div>
 
-        <!-- Right Column: Smart Lure Selector -->
+        <!-- Right Column: Sidebar (Sticky Widget) -->
         <div class="sidebar">
             <div id="selector" class="widget">
                 <h2>Smart Lure Selector</h2>
@@ -121,6 +196,7 @@
                 <div id="result" class="result-box"></div>
             </div>
         </div>
+
     </div>
 
     <footer>

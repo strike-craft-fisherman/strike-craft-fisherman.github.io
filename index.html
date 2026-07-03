@@ -375,9 +375,9 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
         const SUPABASE_URL = 'https://fkauskwrxajzzchciaiu.supabase.co';
-const SUPABASE_ANON_KEY = 'KvGWqEPhIb9oD-DZOdOgtA_MYFXzeCa';
+        const SUPABASE_ANON_KEY = 'KvGWqEPhIb9oD-DZOdOgtA_MYFXzeCa';
 
-const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
         function findLure() {
             const target = document.getElementById('target').value;
@@ -442,6 +442,12 @@ const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
             resultBox.style.display = 'block';
         }
 
+        function escapeHTML(str) {
+            return str.replace(/[&<>'"]/g, 
+                tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag)
+            );
+        }
+
         async function loadPosts() {
             const container = document.getElementById('forumContainer');
             
@@ -473,26 +479,28 @@ const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
                 </div>
             `;
 
-            posts.forEach(post => {
-                const date = new Date(post.created_at).toLocaleString();
-                const postHTML = `
-                    <div class="forum-thread">
-                        <div class="thread-header" onclick="toggleThread('post-${post.id}')">
-                            <div class="thread-info">
-                                <h3>${escapeHTML(post.title)}</h3>
-                                <span class="thread-meta">Posted by <strong>${escapeHTML(post.username)}</strong> • ${date}</span>
+            if (posts) {
+                posts.forEach(post => {
+                    const date = new Date(post.created_at).toLocaleString();
+                    const postHTML = `
+                        <div class="forum-thread">
+                            <div class="thread-header" onclick="toggleThread('post-${post.id}')">
+                                <div class="thread-info">
+                                    <h3>${escapeHTML(post.title)}</h3>
+                                    <span class="thread-meta">Posted by <strong>${escapeHTML(post.username)}</strong> • ${date}</span>
+                                </div>
+                                <span class="thread-replies">Open</span>
                             </div>
-                            <span class="thread-replies">Open</span>
-                        </div>
-                        <div id="post-${post.id}" class="thread-content" style="display: block;">
-                            <div class="forum-post">
-                                <div class="post-text">${escapeHTML(post.message)}</div>
+                            <div id="post-${post.id}" class="thread-content" style="display: block;">
+                                <div class="forum-post">
+                                    <div class="post-text">${escapeHTML(post.message)}</div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                `;
-                container.innerHTML += postHTML;
-            });
+                    `;
+                    container.innerHTML += postHTML;
+                });
+            }
         }
 
         async function addNewThread() {
@@ -518,12 +526,6 @@ const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
                 document.getElementById('forumText').value = '';
                 loadPosts();
             }
-        }
-
-        function escapeHTML(str) {
-            return str.replace(/[&<>'"]/g, 
-                tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag)
-            );
         }
 
         window.onload = function() {

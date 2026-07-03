@@ -69,6 +69,10 @@
         .post-author { font-weight: bold; color: #1b365d; font-size: 14px; }
         .post-text { margin-top: 5px; color: #444; }
         
+        /* New Forum Form Box */
+        .forum-form { background: #f9f9f9; border: 1px dashed #1b365d; padding: 20px; border-radius: 6px; margin-top: 25px; }
+        .textarea-field { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 4px; font-size: 16px; background-color: white; resize: vertical; min-height: 80px; font-family: inherit; }
+
         /* Sidebar Sticky Widgets */
         .sidebar-wrapper { position: sticky; top: 110px; display: flex; flex-direction: column; gap: 30px; }
         .widget { background: #eef3f7; padding: 30px; border-radius: 8px; border-left: 5px solid #1b365d; scroll-margin-top: 110px; }
@@ -107,7 +111,7 @@
         <!-- Left Column -->
         <div class="content-area">
             
-            <!-- Section 0: About Master (New) -->
+            <!-- Section 0: About Master -->
             <div id="about" class="section-card">
                 <h2>About the Master Craftsman</h2>
                 <p>Welcome to Strike Craft. This platform is built on over a decade and a half of relentless pursuit of trophy Northern Pike, Muskie, and Walleye. Every blueprint and advice shared here is born from real trial and error out on open water.</p>
@@ -119,7 +123,7 @@
                     </div>
                 </div>
 
-                <!-- Custom Lures Gallery Showcase (New) -->
+                <!-- Custom Lures Gallery Showcase -->
                 <h3 style="margin-top: 30px;">Signature Handcrafted Lineup</h3>
                 <div class="showcase-grid">
                     <div class="showcase-item">
@@ -199,8 +203,10 @@
             <!-- Section 3: Forum -->
             <div id="forum" class="section-card">
                 <h2>Community Forum Discussions</h2>
-                <p>Click on any thread below to read the discussion or answers from fellow builders.</p>
-                <div class="forum-list">
+                <p>Click on any thread below to read the discussion, or use the form below to start your own topic!</p>
+                
+                <!-- Container holding all threads -->
+                <div class="forum-list" id="forumContainer">
                     
                     <!-- Thread 1 -->
                     <div class="forum-thread">
@@ -249,6 +255,25 @@
                     </div>
 
                 </div>
+
+                <!-- Interactive Post Form (NEW) -->
+                <div class="forum-form">
+                    <h3>Start a New Discussion</h3>
+                    <div class="form-group" style="margin-top: 15px;">
+                        <label for="forumUser">Your Username</label>
+                        <input type="text" id="forumUser" class="input-field" placeholder="e.g., PikeHunter_99">
+                    </div>
+                    <div class="form-group">
+                        <label for="forumTopic">Topic Title / Question</label>
+                        <input type="text" id="forumTopic" class="input-field" placeholder="What is your topic about?">
+                    </div>
+                    <div class="form-group">
+                        <label for="forumText">Your Message</label>
+                        <textarea id="forumText" class="textarea-field" placeholder="Describe your question or report in detail..."></textarea>
+                    </div>
+                    <button class="btn" onclick="addNewThread()">Post Message</button>
+                </div>
+
             </div>
 
         </div>
@@ -279,7 +304,7 @@
                     <div id="result" class="result-box"></div>
                 </div>
 
-                <!-- Widget 2: Newsletter Blueprint Club (New) -->
+                <!-- Widget 2: Newsletter Blueprint Club -->
                 <div class="widget" style="border-left-color: #f2a900;">
                     <h2>Join the Guild</h2>
                     <p style="font-size: 14px; margin-bottom: 15px; color: #555;">Get monthly lure carving blueprints and weighting files delivered directly to your email.</p>
@@ -332,6 +357,50 @@
             } else {
                 content.style.display = "block";
             }
+        }
+
+        // Add New Thread Script Logic (NEW)
+        let threadCounter = 3;
+        function addNewThread() {
+            const user = document.getElementById('forumUser').value.trim();
+            const topic = document.getElementById('forumTopic').value.trim();
+            const text = document.getElementById('forumText').value.trim();
+            const container = document.getElementById('forumContainer');
+
+            if (!user || !topic || !text) {
+                alert("Please fill in all fields before posting!");
+                return;
+            }
+
+            threadCounter++;
+            const currentId = "thread" + threadCounter;
+
+            // Generate clean HTML block for the new thread
+            const newThreadHTML = `
+                <div class="forum-thread">
+                    <div class="thread-header" onclick="toggleThread('${currentId}')">
+                        <div class="thread-info">
+                            <h3>${topic}</h3>
+                            <span class="thread-meta">Started by ${user} • Just now</span>
+                        </div>
+                        <span class="thread-replies">0 replies</span>
+                    </div>
+                    <div id="${currentId}" class="thread-content">
+                        <div class="forum-post">
+                            <div class="post-author">${user} (Topic Starter):</div>
+                            <div class="post-text">${text}</div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            // Append onto the bottom of the existing forum list
+            container.insertAdjacentHTML('beforeend', newThreadHTML);
+
+            // Reset inputs fields
+            document.getElementById('forumUser').value = "";
+            document.getElementById('forumTopic').value = "";
+            document.getElementById('forumText').value = "";
         }
     </script>
 </body>

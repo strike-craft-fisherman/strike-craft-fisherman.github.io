@@ -6,14 +6,15 @@
     <title>Strike Craft Fisherman | Professional Angling & Gear Insights</title>
     <style>
         body, h1, h2, h3, p, ul, li { margin: 0; padding: 0; }
-        body { font-family: 'Open Sans', sans-serif; background-color: #ffffff; color: #1a1a1a; line-height: 1.6; }
+        body { font-family: 'Open Sans', sans-serif; background-color: #f4f7f6; color: #333; line-height: 1.6; }
         a { text-decoration: none; color: inherit; }
         ul { list-style: none; }
         html { scroll-behavior: smooth; }
         
         :root {
-            --primary-blue: #0f2537;
+            --primary-blue: #1b365d;
             --accent-teal: #1c7c7c;
+            --accent-gold: #f2a900;
             --bg-grey: #f8f9fa;
             --border-color: #e3e6ec;
             --text-main: #2d3748;
@@ -23,81 +24,84 @@
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
         
         /* Header */
-        header { background-color: #ffffff; padding: 25px 0; border-bottom: 1px solid var(--border-color); position: sticky; top: 0; z-index: 100; }
+        header { background-color: var(--primary-blue); padding: 25px 0; border-bottom: 1px solid rgba(255,255,255,0.1); position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
         header .container { display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-size: 1.8rem; font-weight: 800; color: var(--primary-blue); letter-spacing: 1px; }
+        .logo { font-size: 1.8rem; font-weight: 800; color: var(--accent-gold); letter-spacing: 1px; }
         .nav { display: flex; gap: 25px; }
-        .nav a { font-weight: 600; color: var(--text-muted); font-size: 0.9rem; text-transform: uppercase; transition: color 0.2s; }
-        .nav a:hover { color: var(--accent-teal); }
+        .nav a { font-weight: 600; color: white; font-size: 0.9rem; text-transform: uppercase; transition: color 0.2s; }
+        .nav a:hover { color: var(--accent-gold); }
+
+        /* Hero Section */
+        .hero { background: linear-gradient(rgba(27, 54, 93, 0.85), rgba(27, 54, 93, 0.85)), url('https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=1200&q=80') no-repeat center center/cover; color: white; padding: 90px 0; text-align: center; }
+        .hero h1 { font-size: 42px; margin-bottom: 15px; letter-spacing: 1px; font-weight: 800; }
+        .hero p { font-size: 18px; color: var(--accent-gold); font-weight: 500; max-width: 700px; margin: 0 auto; line-height: 1.4; }
 
         /* Main Layout */
         .main-wrapper { display: flex; gap: 40px; padding: 40px 0; flex-wrap: wrap; }
         .content-main { flex: 2.5; min-width: 300px; }
         .sidebar { flex: 1.2; display: flex; flex-direction: column; gap: 30px; min-width: 300px; }
 
-        /* Article Styles */
-        .section-block { scroll-margin-top: 100px; margin-bottom: 40px; }
+        /* Structural Cards */
+        .section-block { scroll-margin-top: 110px; margin-bottom: 40px; background: white; padding: 35px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
         .article-meta { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 10px; font-weight: 600; text-transform: uppercase; }
-        h1.article-title { font-size: 2.5rem; color: var(--primary-blue); margin-bottom: 25px; font-weight: 800; line-height: 1.2; }
-        h2 { font-size: 1.6rem; color: var(--primary-blue); margin: 35px 0 15px 0; font-weight: 700; padding-bottom: 5px; border-bottom: 1px solid var(--border-color); }
-        h3 { font-size: 1.2rem; color: var(--primary-blue); margin: 20px 0 10px 0; font-weight: 700; }
+        h2 { font-size: 1.6rem; color: var(--primary-blue); margin: 10px 0 20px 0; font-weight: 700; padding-bottom: 8px; border-bottom: 2px solid var(--accent-gold); }
+        h3 { font-size: 1.2rem; color: var(--primary-blue); margin: 25px 0 10px 0; font-weight: 700; }
         p { margin-bottom: 20px; color: var(--text-main); font-size: 1.05rem; }
 
-        /* Feature 1: Ultimate Depth Matrix Table */
+        /* Table */
         .matrix-table { width: 100%; border-collapse: collapse; margin: 25px 0; font-size: 0.95rem; }
         .matrix-table th, .matrix-table td { padding: 12px 15px; text-align: left; border: 1px solid var(--border-color); }
         .matrix-table th { background-color: var(--primary-blue); color: white; font-weight: 600; }
         .matrix-table tr:nth-child(even) { background-color: var(--bg-grey); }
 
-        /* Showcase Gallery */
+        /* Showcase DIY Blueprint Gallery */
         .showcase-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-top: 20px; }
-        .showcase-item { background: var(--bg-grey); border: 1px solid var(--border-color); border-radius: 6px; overflow: hidden; text-align: center; padding-bottom: 15px; }
-        .showcase-img { width: 100%; height: 140px; background-color: #cbd5e0; display: flex; align-items: center; justify-content: center; font-weight: bold; color: white; font-size: 14px; background-size: cover; background-position: center; }
-        .showcase-item h4 { margin: 12px 0 5px 0; color: var(--primary-blue); }
-        .showcase-item span { font-size: 11px; color: white; font-weight: bold; background: var(--accent-teal); padding: 3px 10px; border-radius: 10px; text-transform: uppercase; }
+        .showcase-item { background: var(--bg-grey); border: 1px solid var(--border-color); border-radius: 6px; overflow: hidden; text-align: center; padding-bottom: 15px; display: flex; flex-direction: column; justify-content: space-between; }
+        .showcase-img { width: 100%; height: 140px; background-color: #cbd5e0; background-size: cover; background-position: center; }
+        .showcase-item h4 { margin: 12px 0 2px 0; color: var(--primary-blue); }
+        .showcase-item p { font-size: 13px; color: var(--text-muted); margin-bottom: 10px; padding: 0 10px; }
+        .blueprint-btn { margin: 0 15px; padding: 8px; background: var(--accent-teal); color: white; font-size: 11px; font-weight: bold; border-radius: 4px; text-transform: uppercase; transition: background 0.2s; cursor: pointer; border: none; }
+        .blueprint-btn:hover { background: var(--primary-blue); }
 
         /* Guides Grid */
-        .guides-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; margin-top: 20px; }
+        .guides-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin-top: 20px; }
         .guide-item { background: var(--bg-grey); border: 1px solid var(--border-color); padding: 20px; border-radius: 6px; }
         .guide-item p { font-size: 0.95rem; color: var(--text-main); margin-top: 5px; }
 
         /* Forum Layout */
         .forum-list { margin-top: 20px; }
         .forum-thread { border: 1px solid var(--border-color); border-radius: 6px; margin-bottom: 12px; overflow: hidden; background: #fff; }
-        .thread-header { display: flex; justify-content: space-between; padding: 15px; cursor: pointer; transition: background 0.2s; user-select: none; }
+        .thread-header { display: flex; justify-content: space-between; padding: 15px; cursor: pointer; transition: background 0.2s; }
         .thread-header:hover { background: var(--bg-grey); }
         .thread-info { display: flex; flex-direction: column; }
         .thread-meta { font-size: 12px; color: var(--text-muted); margin-top: 4px; }
         .thread-replies { background: var(--bg-grey); padding: 5px 12px; border-radius: 20px; font-size: 13px; font-weight: bold; color: var(--primary-blue); align-self: center; border: 1px solid var(--border-color); }
-        
-        .thread-content { display: none; padding: 20px; background: var(--bg-grey); border-top: 1px dashed var(--border-color); font-size: 15px; }
+        .thread-content { display: none; padding: 20px; background: var(--bg-grey); border-top: 1px dashed var(--border-color); }
         .forum-post { margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px solid var(--border-color); }
-        .forum-post:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
         .post-author { font-weight: bold; color: var(--primary-blue); font-size: 14px; }
         .post-text { margin-top: 5px; color: var(--text-main); }
         
-        /* New Forum Form Box */
+        /* Forms */
         .forum-form { background: var(--bg-grey); border: 1px solid var(--border-color); padding: 25px; border-radius: 6px; margin-top: 30px; }
-        .textarea-field { width: 100%; padding: 10px; border: 1px solid var(--border-color); border-radius: 4px; font-size: 0.9rem; background-color: white; resize: vertical; min-height: 90px; font-family: inherit; box-sizing: border-box; }
-        .input-field { width: 100%; padding: 10px; border: 1px solid var(--border-color); border-radius: 4px; background-color: white; font-size: 0.9rem; box-sizing: border-box; }
+        .textarea-field, .input-field, .select-field { width: 100%; padding: 10px; border: 1px solid var(--border-color); border-radius: 4px; font-size: 0.9rem; background-color: white; box-sizing: border-box; font-family: inherit; }
+        .textarea-field { resize: vertical; min-height: 90px; }
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 5px; color: var(--text-main); }
 
-        /* Feature 2: E-E-A-T Author Box */
-        .author-box { display: flex; gap: 20px; background-color: var(--bg-grey); padding: 25px; border-radius: 6px; border-left: 5px solid var(--accent-teal); margin-top: 50px; }
+        /* Author Box */
+        .author-box { display: flex; gap: 20px; background-color: var(--bg-grey); padding: 25px; border-radius: 6px; border-left: 5px solid var(--accent-teal); margin-top: 40px; }
         .author-avatar { width: 70px; height: 70px; background-color: #cbd5e0; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; color: white; font-size: 1.5rem; flex-shrink: 0; }
         .author-info h4 { font-size: 1.1rem; color: var(--primary-blue); margin-bottom: 5px; }
         .author-badge { background-color: var(--accent-teal); color: white; font-size: 0.75rem; padding: 2px 8px; border-radius: 10px; margin-left: 10px; vertical-align: middle; }
         .author-bio { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 0; }
 
-        /* Feature 3: Interactive Lure Selector Widget */
-        .widget { background-color: var(--bg-grey); padding: 25px; border-radius: 6px; border: 1px solid var(--border-color); }
-        .widget h3 { font-size: 1.1rem; color: var(--primary-blue); margin-bottom: 15px; text-transform: uppercase; font-weight: 700; border-bottom: 2px solid var(--border-color); padding-bottom: 8px; }
-        .form-group { margin-bottom: 15px; }
-        .form-group label { display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 5px; color: var(--text-main); }
-        .form-group select { width: 100%; padding: 10px; border: 1px solid var(--border-color); border-radius: 4px; background-color: white; font-size: 0.9rem; }
+        /* Widgets */
+        .widget { background-color: white; padding: 25px; border-radius: 8px; border: 1px solid var(--border-color); box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        .widget h3 { font-size: 1.1rem; color: var(--primary-blue); margin-top: 0; margin-bottom: 15px; text-transform: uppercase; font-weight: 700; border-bottom: 2px solid var(--accent-gold); padding-bottom: 8px; }
         
         .selector-btn { width: 100%; padding: 12px; background-color: var(--accent-teal); color: white; border: none; border-radius: 4px; font-weight: 600; cursor: pointer; transition: background 0.2s; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 0.5px; }
         .selector-btn:hover { background-color: var(--primary-blue); }
-        .selector-result { margin-top: 15px; padding: 12px; background-color: #fff; border-radius: 4px; border-left: 3px solid var(--accent-teal); display: none; font-size: 0.9rem; font-weight: 600; color: var(--primary-blue); }
+        .selector-result { margin-top: 15px; padding: 12px; background-color: var(--bg-grey); border-radius: 4px; border-left: 3px solid var(--accent-teal); display: none; font-size: 0.9rem; font-weight: 600; color: var(--primary-blue); }
 
         footer { background-color: var(--primary-blue); color: #ffffff; padding: 40px 0; text-align: center; font-size: 0.85rem; margin-top: 60px; }
     </style>
@@ -110,12 +114,17 @@
             <a href="#" class="logo">STRIKE CRAFT</a>
             <ul class="nav">
                 <li><a href="#tactics">Tactics</a></li>
-                <li><a href="#showcase">Lures Lineup</a></li>
+                <li><a href="#diy-corner">DIY Corner</a></li>
                 <li><a href="#guides">Guides</a></li>
                 <li><a href="#forum">Forum</a></li>
             </ul>
         </div>
     </header>
+
+    <section class="hero">
+        <h1>Handcrafted Lures & Fishing Tactics</h1>
+        <p>15 years of hardcore predator fishing experience, custom wood-carving secrets, and field-tested lake strategies brought directly to your workbench.</p>
+    </section>
 
     <div class="container">
         <div class="main-wrapper">
@@ -123,15 +132,15 @@
             <!-- Main Content Area -->
             <main class="content-main">
                 <article>
-                    <div class="article-meta">Advanced Tactics & Technical Guide</div>
-                    <h1 class="article-title">Tactics for Predator Fish: Locating and Engaging Key Species</h1>
-                    
-                    <p>To consistently land elite freshwater predators, an angler must move past guesswork. Success relies heavily on understanding how shifting water parameters and structural boundaries dictate predatory hunting cycles.</p>
                     
                     <!-- Section: Tactics -->
                     <div id="tactics" class="section-block">
-                        <h2>Strategic Ambush Zones</h2>
-                        <p>Predatory species like Northern Pike and Trophy Bass are highly efficient hunters. They position themselves along distinct structural edges to minimize energy output while maximizing striking speed. Key environments to target include deep weed lines, submerged timber structures, and sharp drop-offs near shallow feeding flats.</p>
+                        <div class="article-meta">Advanced Tactics & Technical Guide</div>
+                        <h2>Tactics for Predator Fish: Locating and Engaging Key Species</h2>
+                        <p>To consistently land elite freshwater predators, an angler must move past guesswork. Success relies heavily on understanding how shifting water parameters and structural boundaries dictate predatory hunting cycles.</p>
+                        
+                        <h3>Strategic Ambush Zones</h3>
+                        <p>Predatory species like Northern Pike and Trophy Bass are highly efficient hunters. They position themselves along distinct structural edges to minimize energy output while maximizing striking speed.</p>
                         
                         <!-- FEATURE 1: Ultimate Depth & Clarity Matrix -->
                         <h3>The Target Matrix: Depth & Water Clarity</h3>
@@ -156,7 +165,7 @@
                                     <td>Deep Edge (8-15 ft)</td>
                                     <td>Suspended, visually tracking prey over distance</td>
                                     <td>Natural finishes, erratic high-speed retrieves</td>
-                                end
+                                </tr>
                                 <tr>
                                     <td>Low-Light / Overcast</td>
                                     <td>Mid-Range (4-8 ft)</td>
@@ -165,29 +174,56 @@
                                 </tr>
                             </tbody>
                         </table>
-                        <p>By mapping your target area against these specific environmental variables, you can eliminate non-productive water quickly and establish a pattern that delivers results across any international venue.</p>
                     </div>
 
-                    <!-- Section: Signature Lures Lineup -->
-                    <div id="showcase" class="section-block">
-                        <h2>Signature Handcrafted Lineup</h2>
-                        <p>Every blueprint and advice shared here is born from real trial and error out on open water. These models are carved to deliver the exact custom hanging action required on tough days.</p>
+                    <!-- Section: DIY Corner (Чертежи и Уголок "Сделай сам") -->
+                    <div id="diy-corner" class="section-block">
+                        <div class="article-meta">Open-Source Workshop</div>
+                        <h2>The DIY Bench: Free Blueprints & Schematics</h2>
+                        <p>No paywalls, no shops. Grab the verified carving schematics, printable trace-patterns, and internal weight placements for my signature tournament-winning builds.</p>
+                        
                         <div class="showcase-grid">
                             <div class="showcase-item">
-                                <div class="showcase-img">130mm Glidebait</div>
+                                <div class="showcase-img" style="background-image: url('https://images.unsplash.com/photo-1517462964-21fdcec3f25b?auto=format&fit=crop&w=300&q=80')"></div>
                                 <h4>The 'Huron Perch'</h4>
-                                <span>Perch Pattern</span>
+                                <p>130mm Glidebait. Slow sinking, perfect wide S-curve sweep.</p>
+                                <button class="blueprint-btn" onclick="alert('Starting Direct Download: huron_perch_130mm_blueprint.pdf (Printable 1:1 Scale Guide Included)')">Get Free PDF</button>
                             </div>
                             <div class="showcase-item">
-                                <div class="showcase-img">110mm Suspender</div>
+                                <div class="showcase-img" style="background-image: url('https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=300&q=80')"></div>
                                 <h4>'Zombie Shad'</h4>
-                                <span>Natural Silver</span>
+                                <p>110mm Minnow. Perfectly suspending belly weight layout.</p>
+                                <button class="blueprint-btn" onclick="alert('Starting Direct Download: zombie_shad_110mm_blueprint.pdf (Printable 1:1 Scale Guide Included)')">Get Free PDF</button>
                             </div>
                             <div class="showcase-item">
-                                <div class="showcase-img">Crankbait</div>
+                                <div class="showcase-img" style="background-image: url('https://images.unsplash.com/photo-1505594042455-b90294024505?auto=format&fit=crop&w=300&q=80')"></div>
                                 <h4>'Deep Reactor'</h4>
-                                <span>Neon Chartreuse</span>
+                                <p>Squarebill Crankbait. High-buoyancy cedar profile mapping.</p>
+                                <button class="blueprint-btn" onclick="alert('Starting Direct Download: deep_reactor_crank_blueprint.pdf (Printable 1:1 Scale Guide Included)')">Get Free PDF</button>
                             </div>
+                        </div>
+
+                        <!-- Новая интерактивная фича: Калькулятор огрузки -->
+                        <div class="forum-form" style="margin-top: 35px; border-left: 4px solid var(--accent-teal);">
+                            <h3 style="margin-top:0; color: var(--primary-blue);">Workbench Tool: Lure Ballast Calculator</h3>
+                            <p style="font-size:14px; color: var(--text-muted); margin-bottom: 15px;">Calculate how much lead ballast target weight you roughly need based on your raw wooden blank material to achieve stable balancing.</p>
+                            
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px;">
+                                <div class="form-group">
+                                    <label for="woodType">Wood Selection</label>
+                                    <select id="woodType" class="select-field">
+                                        <option value="balsa">Balsa Wood (Very High Buoyancy)</option>
+                                        <option value="cedar">Red Cedar (Medium Buoyancy)</option>
+                                        <option value="pine">White Pine (Low Buoyancy)</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="blankWeight">Blank Weight (grams)</label>
+                                    <input type="number" id="blankWeight" class="input-field" value="15" min="1">
+                                </div>
+                            </div>
+                            <button class="selector-btn" style="background-color: var(--primary-blue); margin-top: 5px;" onclick="calculateBallast()">Calculate Ballast Weight</button>
+                            <div id="ballastResult" class="selector-result" style="margin-top: 15px;"></div>
                         </div>
                     </div>
 
@@ -217,7 +253,6 @@
                         <p>Click on any thread below to read the discussion, or use the form below to start your own topic dynamically!</p>
                         
                         <div class="forum-list" id="forumContainer">
-                            <!-- Thread 1 -->
                             <div class="forum-thread">
                                 <div class="thread-header" onclick="toggleThread('thread1')">
                                     <div class="thread-info">
@@ -233,32 +268,7 @@
                                     </div>
                                     <div class="forum-post">
                                         <div class="post-author">BaitMaster_Tx:</div>
-                                        <div class="post-text">Place 65% of the total ballast weight right in front of the belly hanger hook, and the remaining 35% slightly behind it. Keep it as low as possible near the keel line to stop the roll.</div>
-                                    </div>
-                                    <div class="forum-post">
-                                        <div class="post-author">SaltyAngler:</div>
-                                        <div class="post-text">Agreed with BaitMaster. If it still rolls, your line tie eyelet might be slightly off-center. Check that too!</div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Thread 2 -->
-                            <div class="forum-thread">
-                                <div class="thread-header" onclick="toggleThread('thread2')">
-                                    <div class="thread-info">
-                                        <h3>Pike smashing custom perch jerkbaits on Lake Huron</h3>
-                                        <span class="thread-meta">Started by AnglerPro_86 • Yesterday</span>
-                                    </div>
-                                    <span class="thread-replies">1 reply</span>
-                                </div>
-                                <div id="thread2" class="thread-content">
-                                    <div class="forum-post">
-                                        <div class="post-author">AnglerPro_86:</div>
-                                        <div class="post-text">Took the new airbrushed perch patterns out this morning. Overcast sky. Landed three solid 35+ inch Northern Pikes within an hour. The erratic hang time on the pause is deadly!</div>
-                                    </div>
-                                    <div class="forum-post">
-                                        <div class="post-author">NordicFisher:</div>
-                                        <div class="post-text">Nice catches! Did you use a slow-sinking or a perfectly suspending build? Pike here love a dead-stop suspension.</div>
+                                        <div class="post-text">Place 65% of the total ballast weight right in front of the belly hanger hook, and the remaining 35% slightly behind it.</div>
                                     </div>
                                 </div>
                             </div>
@@ -277,13 +287,13 @@
                             </div>
                             <div class="form-group">
                                 <label for="forumText">Your Message</label>
-                                <textarea id="forumText" class="textarea-field" placeholder="Describe your question or report in detail..."></textarea>
+                                <textarea id="forumText" class="textarea-field" placeholder="Describe your question..."></textarea>
                             </div>
                             <button class="selector-btn" onclick="addNewThread()">Post Message</button>
                         </div>
                     </div>
 
-                    <!-- FEATURE 2: E-E-A-T Verified Author Box (Точно по вашему стилю) -->
+                    <!-- FEATURE 2: E-E-A-T Verified Author Box -->
                     <div class="author-box">
                         <div class="author-avatar">IM</div>
                         <div class="author-info">
@@ -298,12 +308,11 @@
             <!-- Sidebar with Widget -->
             <aside class="sidebar">
                 
-                <!-- FEATURE 3: Interactive Lure Selector Widget -->
                 <div class="widget">
                     <h3>Smart Lure Selector</h3>
                     <div class="form-group">
                         <label for="target">Target Species</label>
-                        <select id="target">
+                        <select id="target" class="select-field">
                             <option value="pike">Northern Pike</option>
                             <option value="bass">Largemouth Bass</option>
                             <option value="walleye">Walleye</option>
@@ -311,7 +320,7 @@
                     </div>
                     <div class="form-group">
                         <label for="weather">Weather Condition</label>
-                        <select id="weather">
+                        <select id="weather" class="select-field">
                             <option value="sunny">Bright / Sunny</option>
                             <option value="cloudy">Overcast / Dark</option>
                         </select>
@@ -331,78 +340,63 @@
         </div>
     </footer>
 
-    <!-- Interactive Logic Scripts -->
     <script>
-        // Lure Selector Function
+        // Lure Selector Logic
         function findLure() {
             const target = document.getElementById('target').value;
             const weather = document.getElementById('weather').value;
             const resultBox = document.getElementById('resultBox');
-            
-            let recommendation = "";
-            
-            if(target === 'pike') {
-                recommendation = weather === 'sunny' ? "🎯 Recommendation: Strike-Craft Shad 5-inch (Silver Flash)" : "🎯 Recommendation: Strike-Craft Shad 5-inch (Firetiger)";
-            } else if(target === 'bass') {
-                recommendation = weather === 'sunny' ? "🎯 Recommendation: Ghost Minnow Deep Diver" : "🎯 Recommendation: Surface Commando Popper (Black/Gold)";
-            } else {
-                recommendation = "🎯 Recommendation: Rattlin' Craw (Natural Brown) - Slow Bottom Roll";
-            }
-            
+            let recommendation = target === 'pike' ? (weather === 'sunny' ? "🎯 Strike-Craft Shad (Silver Flash)" : "🎯 Strike-Craft Shad (Firetiger)") : "🎯 Ghost Minnow Deep Diver";
             resultBox.innerText = recommendation;
             resultBox.style.display = 'block';
         }
 
-        // Forum Thread Accordion Toggle
-        function toggleThread(id) {
-            const content = document.getElementById(id);
-            if (content.style.display === "block") {
-                content.style.display = "none";
-            } else {
-                content.style.display = "block";
+        // Lure Ballast Calculator Logic
+        function calculateBallast() {
+            const wood = document.getElementById('woodType').value;
+            const weight = parseFloat(document.getElementById('blankWeight').value);
+            const resBox = document.getElementById('ballastResult');
+            
+            if(!weight || weight <= 0) {
+                alert("Please enter a valid blank weight!");
+                return;
             }
+
+            let leadNeeded = 0;
+            if(wood === 'balsa') {
+                leadNeeded = (weight * 1.2).toFixed(1); // Бальза требует много веса
+            } else if(wood === 'cedar') {
+                leadNeeded = (weight * 0.7).toFixed(1); // Кедр средний
+            } else {
+                leadNeeded = (weight * 0.4).toFixed(1); // Сосна тяжелее
+            }
+
+            resBox.innerHTML = `⚖️ <strong>Estimated Lead Ballast:</strong> ~${leadNeeded}g total weight.<br><span style="font-size:12px; font-weight:normal; color:#718096;">Split: 60% near belly hook, 40% near tail/center for standard sinking action.</span>`;
+            resBox.style.display = 'block';
         }
 
-        // Add New Post Function
-        let threadCounter = 2;
+        function toggleThread(id) {
+            const content = document.getElementById(id);
+            content.style.display = content.style.display === "block" ? "none" : "block";
+        }
+
         function addNewThread() {
             const user = document.getElementById('forumUser').value.trim();
             const topic = document.getElementById('forumTopic').value.trim();
             const text = document.getElementById('forumText').value.trim();
-            const container = document.getElementById('forumContainer');
-
-            if (!user || !topic || !text) {
-                alert("Please fill in all fields before posting!");
-                return;
-            }
-
-            threadCounter++;
-            const currentId = "thread" + threadCounter;
-
+            if (!user || !topic || !text) { alert("Fill all fields!"); return; }
+            
+            const currentId = "thread" + Math.random();
             const newThreadHTML = `
                 <div class="forum-thread">
                     <div class="thread-header" onclick="toggleThread('${currentId}')">
-                        <div class="thread-info">
-                            <h3>${topic}</h3>
-                            <span class="thread-meta">Started by ${user} • Just now</span>
-                        </div>
+                        <div class="thread-info"><h3>${topic}</h3><span class="thread-meta">By ${user} • Just now</span></div>
                         <span class="thread-replies">0 replies</span>
                     </div>
-                    <div id="${currentId}" class="thread-content">
-                        <div class="forum-post">
-                            <div class="post-author">${user} (Topic Starter):</div>
-                            <div class="post-text">${text}</div>
-                        </div>
-                    </div>
-                </div>
-            `;
-
-            container.insertAdjacentHTML('beforeend', newThreadHTML);
-
-            // Clean inputs
-            document.getElementById('forumUser').value = "";
-            document.getElementById('forumTopic').value = "";
-            document.getElementById('forumText').value = "";
+                    <div id="${currentId}" class="thread-content"><div class="forum-post"><div class="post-author">${user}:</div><div class="post-text">${text}</div></div></div>
+                </div>`;
+            document.getElementById('forumContainer').insertAdjacentHTML('beforeend', newThreadHTML);
+            document.getElementById('forumUser').value = ""; document.getElementById('forumTopic').value = ""; document.getElementById('forumText').value = "";
         }
     </script>
 </body>

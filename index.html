@@ -19,6 +19,8 @@
             --border-color: #e3e6ec;
             --text-main: #2d3748;
             --text-muted: #718096;
+            --safety-red: #c53030;
+            --blueprint-blue: #0f2b5c;
         }
 
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
@@ -48,6 +50,12 @@
         h3 { font-size: 1.2rem; color: var(--primary-blue); margin: 25px 0 10px 0; font-weight: 700; }
         p { margin-bottom: 20px; color: var(--text-main); font-size: 1.05rem; }
 
+        /* Tool & Safety Lists */
+        .info-box { background: var(--bg-grey); padding: 20px; border-radius: 6px; border-left: 4px solid var(--accent-teal); margin-bottom: 20px; }
+        .info-box.safety { border-left-color: var(--safety-red); background-color: #fffaf0; }
+        .info-list { padding-left: 20px; margin-bottom: 10px; }
+        .info-list li { margin-bottom: 6px; color: var(--text-main); font-size: 0.95rem; }
+
         /* Table */
         .matrix-table { width: 100%; border-collapse: collapse; margin: 25px 0; font-size: 0.95rem; }
         .matrix-table th, .matrix-table td { padding: 12px 15px; text-align: left; border: 1px solid var(--border-color); }
@@ -62,6 +70,16 @@
         .showcase-item p { font-size: 13px; color: var(--text-muted); margin-bottom: 10px; padding: 0 10px; }
         .blueprint-btn { margin: 0 15px; padding: 8px; background: var(--accent-teal); color: white; font-size: 11px; font-weight: bold; border-radius: 4px; text-transform: uppercase; transition: background 0.2s; cursor: pointer; border: none; }
         .blueprint-btn:hover { background: var(--primary-blue); }
+
+        /* Interactive Blueprint Modal Window */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.75); z-index: 1000; justify-content: center; align-items: center; padding: 20px; box-sizing: border-box; }
+        .modal-content { background: var(--blueprint-blue); color: #a4c2f4; padding: 30px; border-radius: 8px; max-width: 650px; width: 100%; border: 3px solid #3c78d8; box-shadow: 0 10px 30px rgba(0,0,0,0.5); position: relative; font-family: monospace; }
+        .modal-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed #3c78d8; padding-bottom: 10px; margin-bottom: 20px; }
+        .modal-title { color: #fff; font-size: 1.3rem; font-weight: bold; }
+        .close-btn { background: none; border: none; color: #fff; font-size: 1.5rem; cursor: pointer; }
+        .close-btn:hover { color: var(--accent-gold); }
+        .blueprint-canvas { width: 100%; height: 220px; background-color: #0b1d3a; border: 1px solid #3c78d8; background-image: linear-gradient(#142d54 1px, transparent 1px), linear-gradient(90deg, #142d54 1px, transparent 1px); background-size: 20px 20px; display: flex; justify-content: center; align-items: center; margin-bottom: 15px; border-radius: 4px; }
+        .blueprint-specs { font-size: 13px; line-height: 1.5; color: #cbd5e0; background: rgba(0,0,0,0.2); padding: 15px; border-radius: 4px; border-left: 3px solid var(--accent-gold); }
 
         /* Guides Grid */
         .guides-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin-top: 20px; }
@@ -182,28 +200,48 @@
                         <h2>The DIY Bench: Free Blueprints & Schematics</h2>
                         <p>No paywalls, no shops. Grab the verified carving schematics, printable trace-patterns, and internal weight placements for my signature tournament-winning builds.</p>
                         
+                        <!-- Блоки: Инструменты и Безопасность -->
+                        <div class="info-box">
+                            <h3 style="margin-top:0; font-size:1.1rem; color: var(--accent-teal);">Essential Workbench Tools</h3>
+                            <ul class="info-list">
+                                <li><strong>Carving Knife / Coping Saw:</strong> For profiling wood blanks (Balsa, Cedar, or Pine).</li>
+                                <li><strong>Sandpaper (120 to 400 grit):</strong> Crucial for smooth hydrodynamic finishes.</li>
+                                <li><strong>Hand Drill & Wire Twister:</strong> To install internal brass or stainless hook hangers.</li>
+                                <li><strong>Airbrush or Fine Brushes:</strong> For applying custom scale patterns and flash colors.</li>
+                            </ul>
+                        </div>
+
+                        <div class="info-box safety">
+                            <h3 style="margin-top:0; font-size:1.1rem; color: var(--safety-red);">⚠️ Workshop Safety First</h3>
+                            <ul class="info-list">
+                                <li><strong>Respiratory Protection:</strong> Always wear a dust mask when sanding cedar or balsa—fine wood dust is hazardous.</li>
+                                <li><strong>Ventilation:</strong> Apply epoxy topcoats and solvent paints only in well-ventilated areas.</li>
+                                <li><strong>Blade Safety:</strong> Always carve away from your body; sharp tools require focus and leather carving gloves are highly recommended.</li>
+                            </ul>
+                        </div>
+
                         <div class="showcase-grid">
                             <div class="showcase-item">
                                 <div class="showcase-img" style="background-image: url('https://images.unsplash.com/photo-1517462964-21fdcec3f25b?auto=format&fit=crop&w=300&q=80')"></div>
                                 <h4>The 'Huron Perch'</h4>
                                 <p>130mm Glidebait. Slow sinking, perfect wide S-curve sweep.</p>
-                                <button class="blueprint-btn" onclick="alert('Starting Direct Download: huron_perch_130mm_blueprint.pdf (Printable 1:1 Scale Guide Included)')">Get Free PDF</button>
+                                <button class="blueprint-btn" onclick="openBlueprint('perch')">Open Blueprint</button>
                             </div>
                             <div class="showcase-item">
                                 <div class="showcase-img" style="background-image: url('https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=300&q=80')"></div>
                                 <h4>'Zombie Shad'</h4>
                                 <p>110mm Minnow. Perfectly suspending belly weight layout.</p>
-                                <button class="blueprint-btn" onclick="alert('Starting Direct Download: zombie_shad_110mm_blueprint.pdf (Printable 1:1 Scale Guide Included)')">Get Free PDF</button>
+                                <button class="blueprint-btn" onclick="openBlueprint('shad')">Open Blueprint</button>
                             </div>
                             <div class="showcase-item">
                                 <div class="showcase-img" style="background-image: url('https://images.unsplash.com/photo-1505594042455-b90294024505?auto=format&fit=crop&w=300&q=80')"></div>
                                 <h4>'Deep Reactor'</h4>
                                 <p>Squarebill Crankbait. High-buoyancy cedar profile mapping.</p>
-                                <button class="blueprint-btn" onclick="alert('Starting Direct Download: deep_reactor_crank_blueprint.pdf (Printable 1:1 Scale Guide Included)')">Get Free PDF</button>
+                                <button class="blueprint-btn" onclick="openBlueprint('crank')">Open Blueprint</button>
                             </div>
                         </div>
 
-                        <!-- Новая интерактивная фича: Калькулятор огрузки -->
+                        <!-- Интерактивная фича: Калькулятор огрузки -->
                         <div class="forum-form" style="margin-top: 35px; border-left: 4px solid var(--accent-teal);">
                             <h3 style="margin-top:0; color: var(--primary-blue);">Workbench Tool: Lure Ballast Calculator</h3>
                             <p style="font-size:14px; color: var(--text-muted); margin-bottom: 15px;">Calculate how much lead ballast target weight you roughly need based on your raw wooden blank material to achieve stable balancing.</p>
@@ -224,6 +262,22 @@
                             </div>
                             <button class="selector-btn" style="background-color: var(--primary-blue); margin-top: 5px;" onclick="calculateBallast()">Calculate Ballast Weight</button>
                             <div id="ballastResult" class="selector-result" style="margin-top: 15px;"></div>
+                        </div>
+                    </div>
+
+                    <!-- Интерактивное Окно Чертежей (MODAL) -->
+                    <div id="blueprintModal" class="modal">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <span class="modal-title" id="modalTitle">Lure Blueprint Blueprint</span>
+                                <button class="close-btn" onclick="closeBlueprint()">✕</button>
+                            </div>
+                            <div class="blueprint-canvas" id="modalCanvas">
+                                <!-- Сюда JS будет подставлять схемы -->
+                            </div>
+                            <div class="blueprint-specs" id="modalSpecs">
+                                Specs loading...
+                            </div>
                         </div>
                     </div>
 
@@ -351,6 +405,64 @@
             resultBox.style.display = 'block';
         }
 
+        // Интерактивные схемы (SVG графика)
+        const blueprintsData = {
+            perch: {
+                title: "TECHNICAL SPEC: THE 'HURON PERCH' (130mm GLIDEBAIT)",
+                svg: `<svg width="260" height="100" viewBox="0 0 260 100">
+                        <path d="M10,50 Q70,10 140,30 T250,50 Q180,85 110,80 T10,50 Z" fill="none" stroke="#6fa8dc" stroke-width="2" stroke-dasharray="4"/>
+                        <circle cx="100" cy="65" r="8" fill="#f1c232" stroke="#fff" />
+                        <text x="92" y="45" fill="#fff" font-size="10">Ballast A</text>
+                        <circle cx="170" cy="60" r="6" fill="#f1c232" stroke="#fff" />
+                        <text x="160" y="45" fill="#fff" font-size="10">Ballast B</text>
+                        <circle cx="20" cy="50" r="3" fill="none" stroke="#6fa8dc" stroke-width="2"/>
+                        <circle cx="120" cy="78" r="3" fill="none" stroke="#6fa8dc" stroke-width="2"/>
+                      </svg>`,
+                specs: "<strong>Length:</strong> 130mm | <strong>Material:</strong> Red Cedar target profile.<br><strong>Ballast Layout:</strong> Split setup. Insert 60% lead in Front Ventral slot (Ballast A) and 40% in Mid-Rear cavity (Ballast B). Provides the signature slow S-curve swimming dynamic."
+            },
+            shad: {
+                title: "TECHNICAL SPEC: 'ZOMBIE SHAD' (110mm SUSPENDING MINNOW)",
+                svg: `<svg width="240" height="100" viewBox="0 0 240 100">
+                        <path d="M10,45 Q60,15 130,25 T230,45 Q160,75 100,70 T10,45 Z" fill="none" stroke="#6fa8dc" stroke-width="2" stroke-dasharray="4"/>
+                        <circle cx="85" cy="55" r="10" fill="#f1c232" stroke="#fff" />
+                        <text x="65" y="35" fill="#fff" font-size="10">Center Ballast</text>
+                        <circle cx="15" cy="45" r="3" fill="none" stroke="#6fa8dc" stroke-width="2"/>
+                        <path d="M22,55 L35,75" stroke="#6fa8dc" stroke-width="3" fill="none" />
+                        <text x="38" y="80" fill="#6fa8dc" font-size="10">Lip Edge</text>
+                      </svg>`,
+                specs: "<strong>Length:</strong> 110mm | <strong>Material:</strong> Balsa Wood for high reaction float.<br><strong>Ballast Layout:</strong> Centered heavy ballast directly surrounding the belly hook hanger. Calibrated to offset balsa buoyancy for dead-stop water suspension."
+            },
+            crank: {
+                title: "TECHNICAL SPEC: 'DEEP REACTOR' (SQUAREBILL CRANKBAIT)",
+                svg: `<svg width="200" height="100" viewBox="0 0 200 100">
+                        <path d="M15,50 Q50,10 110,25 T190,50 Q130,90 80,85 T15,50 Z" fill="none" stroke="#6fa8dc" stroke-width="2" stroke-dasharray="4"/>
+                        <circle cx="70" cy="65" r="12" fill="#f1c232" stroke="#fff" />
+                        <text x="50" y="40" fill="#fff" font-size="10">Low Ballast</text>
+                        <path d="M25,60 L5,90" stroke="#fff" stroke-width="4" fill="none" />
+                        <text x="8" y="98" fill="#fff" font-size="10">Square Lip</text>
+                      </svg>`,
+                specs: "<strong>Length:</strong> 75mm (Fat profile) | <strong>Material:</strong> White Pine / Cedar.<br><strong>Ballast Layout:</strong> Single ultra-low focal point ballast to ensure high roll stability and immediate deflection memory when impacting underwater rock structures."
+            }
+        };
+
+        function openBlueprint(type) {
+            const data = blueprintsData[type];
+            document.getElementById('modalTitle').innerText = data.title;
+            document.getElementById('modalCanvas').innerHTML = data.svg;
+            document.getElementById('modalSpecs').innerHTML = data.specs;
+            document.getElementById('blueprintModal').style.display = 'flex';
+        }
+
+        function closeBlueprint() {
+            document.getElementById('blueprintModal').style.display = 'none';
+        }
+
+        // Закрытие по клику вне модалки
+        window.onclick = function(event) {
+            const modal = document.getElementById('blueprintModal');
+            if (event.target == modal) { modal.style.display = 'none'; }
+        }
+
         // Lure Ballast Calculator Logic
         function calculateBallast() {
             const wood = document.getElementById('woodType').value;
@@ -364,11 +476,11 @@
 
             let leadNeeded = 0;
             if(wood === 'balsa') {
-                leadNeeded = (weight * 1.2).toFixed(1); // Бальза требует много веса
+                leadNeeded = (weight * 1.2).toFixed(1);
             } else if(wood === 'cedar') {
-                leadNeeded = (weight * 0.7).toFixed(1); // Кедр средний
+                leadNeeded = (weight * 0.7).toFixed(1);
             } else {
-                leadNeeded = (weight * 0.4).toFixed(1); // Сосна тяжелее
+                leadNeeded = (weight * 0.4).toFixed(1);
             }
 
             resBox.innerHTML = `⚖️ <strong>Estimated Lead Ballast:</strong> ~${leadNeeded}g total weight.<br><span style="font-size:12px; font-weight:normal; color:#718096;">Split: 60% near belly hook, 40% near tail/center for standard sinking action.</span>`;

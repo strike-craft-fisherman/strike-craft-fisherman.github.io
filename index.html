@@ -281,7 +281,6 @@
                         <p>Click on any thread below to read the discussion, or use the form below to start your own topic dynamically!</p>
                         
                         <div class="forum-list" id="forumContainer">
-                            <!-- Сюда будут динамически рендериться посты из Supabase -->
                             <div class="forum-thread">
                                 <div class="thread-header" onclick="toggleThread('thread1')">
                                     <div class="thread-info">
@@ -392,7 +391,7 @@
                 svg: `<svg width="240" height="100" viewBox="0 0 240 100"><path d="M10,45 Q60,15 130,25 T230,45 Q160,75 100,70 T10,45 Z" fill="none" stroke="#6fa8dc" stroke-width="2" stroke-dasharray="4"/><circle cx="85" cy="55" r="10" fill="#f1c232" stroke="#fff" /><text x="65" y="35" fill="#fff" font-size="10">Center Ballast</text><circle cx="15" cy="45" r="3" fill="none" stroke="#6fa8dc" stroke-width="2"/><path d="M22,55 L35,75" stroke="#6fa8dc" stroke-width="3" fill="none" /><text x="38" y="80" fill="#6fa8dc" font-size="10">Lip Edge</text></svg>`,
                 specs: "<strong>Length:</strong> 110mm | <strong>Material:</strong> Balsa Wood for high reaction float.<br><strong>Ballast Layout:</strong> Centered heavy ballast directly surrounding the belly hook hanger. Calibrated to offset balsa buoyancy for dead-stop water suspension."
             },
-            reveal: {
+            crank: {
                 title: "TECHNICAL SPEC: 'DEEP REACTOR' (SQUAREBILL CRANKBAIT)",
                 svg: `<svg width="200" height="100" viewBox="0 0 200 100"><path d="M15,50 Q50,10 110,25 T190,50 Q130,90 80,85 T15,50 Z" fill="none" stroke="#6fa8dc" stroke-width="2" stroke-dasharray="4"/><circle cx="70" cy="65" r="12" fill="#f1c232" stroke="#fff" /><text x="50" y="40" fill="#fff" font-size="10">Low Ballast</text><path d="M25,60 L5,90" stroke="#fff" stroke-width="4" fill="none" /><text x="8" y="98" fill="#fff" font-size="10">Square Lip</text></svg>`,
                 specs: "<strong>Length:</strong> 75mm (Fat profile) | <strong>Material:</strong> White Pine / Cedar.<br><strong>Ballast Layout:</strong> Single ultra-low focal point ballast to ensure high roll stability and immediate deflection memory when impacting underwater rock structures."
@@ -436,125 +435,79 @@
         }
 
         function escapeHTML(str) {
-            return str.replace(/[&<>'"]/g, 
-                tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag)
-            );
+            return str.replace(/&/g, "&amp;")
+                      .replace(/</g, "&lt;")
+                      .replace(/>/g, "&gt;")
+                      .replace(/"/g, "&quot;")
+                      .replace(/'/g, "&#039;");
         }
 
-        // --- ИНТЕГРАЦИЯ SUPABASE ДЛЯ ФОРУМА ---
+        async function createPost() {
+            const usernameInput = document.getElementById('forumUser');
+            const topicInput = document.getElementById('forumTopic');
+            const messageInput = document.getElementById('forumText');
 
-        async function loadPosts() {
-            if (!supabaseClient) return;
-            const container = document.getElementById('forumContainer');
-            
-            // Сохраняем статический тред, который уже был на странице
-            const staticThreadHTML = `
+            const username = usernameInput.value.trim();
+            const topic = topicInput.value.trim();
+            const message = messageInput.value.trim();
+
+            if (!username || !topic || !message) {
+                alert("Please fill out all fields before submitting.");
+                return;
+            }
+
+            const safeUsername = escapeHTML(username);
+            const safeTopic = escapeHTML(topic);
+            const safeMessage = escapeHTML(message);
+
+            const timestamp = new Date().toLocaleDateString('en-US', { 
+                month: 'short', 
+                day: 'numeric', 
+                year: 'numeric' 
+            });
+            const uniqueId = 'thread_' + Date.now();
+
+            if (supabaseClient) {
+                try {
+                    const { error } = await supabaseClient
+                        .from('forum_posts')
+                        .insert([
+                            { username: safeUsername, title: safeTopic, message: safeMessage }
+                        ]);
+                    if (error) {
+                        alert("Database error: " + error.message);
+                        return;
+                    }
+                } catch (e) {
+                    console.error("Database connection failed:", e);
+                }
+            }
+
+            const forumContainer = document.getElementById('forumContainer');
+            const newThreadHtml = `
                 <div class="forum-thread">
-                    <div class="thread-header" onclick="toggleThread('thread1')">
+                    <div class="thread-header" onclick="toggleThread('${uniqueId}')">
                         <div class="thread-info">
-                            <h3>Best lead weight distribution for stable 110mm glidebaits?</h3>
-                            <span class="thread-meta">Started by LureCrafter99 • Archive Thread</span>
+                            <h3>${safeTopic}</h3>
+                            <span class="thread-meta">Started by ${safeUsername} • ${timestamp}</span>
                         </div>
-                        <span class="thread-replies">Static</span>
+                        <span class="thread-replies">New</span>
                     </div>
-                    <div id="thread1" class="thread-content">
+                    <div id="${uniqueId}" class="thread-content" style="display: block;">
                         <div class="forum-post">
-                            <div class="post-author">LureCrafter99 (Topic Starter):</div>
-                            <div class="post-text">Hey guys, I'm carving a 110mm wooden glidebait but it keeps rolling on faster retrieves. Where should I center the belly weights?</div>
+                            <div class="post-author">${safeUsername} (Topic Starter):</div>
+                            <div class="post-text">${safeMessage}</div>
                         </div>
                     </div>
                 </div>
             `;
 
-            try {
-                const { data: posts, error } = await supabaseClient
-                    .from('posts')
-                    .select('*')
-                    .order('created_at', { ascending: false });
+            forumContainer.insertAdjacentHTML('afterbegin', newThreadHtml);
 
-                if (error) throw error;
-
-                let dynamicThreadsHTML = '';
-                if (posts && posts.length > 0) {
-                    posts.forEach((post, index) => {
-                        const safeUser = escapeHTML(post.username || 'Anonymous');
-                        const safeTitle = escapeHTML(post.title || 'No Title');
-                        const safeText = escapeHTML(post.content || '');
-                        const threadId = `dynamic_thread_${post.id || index}`;
-                        const dateStr = post.created_at ? new Date(post.created_at).toLocaleDateString() : 'Recent';
-
-                        dynamicThreadsHTML += `
-                            <div class="forum-thread">
-                                <div class="thread-header" onclick="toggleThread('${threadId}')">
-                                    <div class="thread-info">
-                                        <h3>${safeTitle}</h3>
-                                        <span class="thread-meta">Started by ${safeUser} • ${dateStr}</span>
-                                    </div>
-                                    <span class="thread-replies">Live</span>
-                                </div>
-                                <div id="${threadId}" class="thread-content">
-                                    <div class="forum-post">
-                                        <div class="post-author">${safeUser}:</div>
-                                        <div class="post-text">${safeText}</div>
-                                    </div>
-                                </div>
-                            </div>
-                        `;
-                    });
-                }
-
-                container.innerHTML = staticThreadHTML + dynamicThreadsHTML;
-
-            } catch (err) {
-                console.error("Error loading posts:", err);
-            }
+            usernameInput.value = '';
+            topicInput.value = '';
+            messageInput.value = '';
         }
-
-        async function createPost() {
-            if (!supabaseClient) {
-                alert("Supabase client is not initialized.");
-                return;
-            }
-
-            const usernameField = document.getElementById('forumUser');
-            const titleField = document.getElementById('forumTopic');
-            const contentField = document.getElementById('forumText');
-
-            const username = usernameField.value.trim();
-            const title = titleField.value.trim();
-            const content = contentField.value.trim();
-
-            if (!username || !title || !content) {
-                alert("Please fill in all fields before posting.");
-                return;
-            }
-
-            try {
-                const { error } = await supabaseClient
-                    .from('posts')
-                    .insert([{ username, title, content }]);
-
-                if (error) throw error;
-
-                // Очищаем форму после успешной отправки
-                usernameField.value = '';
-                titleField.value = '';
-                contentField.value = '';
-
-                // Перезагружаем список тредов
-                await loadPosts();
-                alert("Discussion posted successfully!");
-
-            } catch (err) {
-                console.error("Error creating post:", err);
-                alert("Failed to save post: " + err.message);
-            }
-        }
-
-        // Запуск загрузки постов при старте страницы
-        document.addEventListener('DOMContentLoaded', () => {
-            loadPosts();
-        });
     </script>
 </body>
 </html>

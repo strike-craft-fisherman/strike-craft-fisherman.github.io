@@ -396,83 +396,39 @@
             loadPosts();
         }
 
-        async function loadPosts() {
-    if (!supabaseClient) return;
-    const container = document.getElementById('forumContainer');
-    container.innerHTML = `<div style="text-align:center; padding: 20px; color: var(--text-muted);"><i class="fa-solid fa-spinner fa-spin"></i> Reading database arrays...</div>`;
+        async function submitComment(postId) {
+    const userEl = document.getElementById(`comment_user_${postId}`);
+    const textEl = document.getElementById(`comment_text_${postId}`);
+    
+    const username = userEl.value.trim();
+    const comment_text = textEl.value.trim();
+    
+    if (!username || !comment_text) {
+        alert("Please fill in both name and text fields.");
+        return;
+    }
+    
+    localStorage.setItem('forum_username', username);
     
     try {
-        const { data, error } = await supabaseClient
-            .from('forum_posts')
-            .select('*')
-            .order('created_at', { ascending: false });
-
-        if (error) throw error;
-        updateStatus(true);
-
-        let filteredData = data || [];
-        if (activeTab === 'my') {
-            filteredData = filteredData.filter(post => mySubmittedIds.includes(post.id));
-        }
-
-        if (filteredData.length === 0) {
-            container.innerHTML = `
-                <div style="text-align:center; padding:40px; border: 1px dashed var(--border-subtle); border-radius:12px; color:var(--text-muted);">
-                    <i class="fa-solid fa-folder-open" style="font-size:2rem; margin-bottom:10px;"></i>
-                    <p>No active threads found.</p>
-                </div>`;
-            return;
-        }
-
-        const savedUser = localStorage.getItem('forum_username') || '';
-
-        let html = '';
-        filteredData.forEach(post => {
-            const postDate = post.created_at ? new Date(post.created_at).toLocaleString() : 'Recent';
-            const initial = post.username ? post.username.charAt(0) : 'A';
+        const { error } = await supabaseClient
+            .from('forum_comments')
+            .insert([{ 
+                post_id: postId, 
+                username: username, 
+                comment_text: comment_text 
+            }]);
             
-            html += `
-                <div class="thread-item" id="thread_${post.id}" onclick="toggleExpand(${post.id})">
-                    <div class="thread-main-row">
-                        <div class="author-avatar-circle">${escapeHTML(initial)}</div>
-                        <div class="thread-core">
-                            <div class="thread-title-line">
-                                ${escapeHTML(post.title || 'Untitled Thread')}
-                            </div>
-                            <div class="thread-body-preview" id="body_${post.id}">
-                                ${escapeHTML(post.message || '')}
-                                
-                                <div class="comments-section" style="margin-top: 20px; padding-top: 15px; border-top: 1px dashed var(--border-subtle);" onclick="event.stopPropagation();">
-                                    <h4 style="font-size: 0.9rem; color: var(--brand-primary); margin-bottom: 10px;"><i class="fa-solid fa-comments"></i> Comments Matrix</h4>
-                                    
-                                    <div id="comments_list_${post.id}" style="margin-bottom: 15px;"></div>
-                                    
-                                    <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-                                        <input type="text" id="comment_user_${post.id}" class="input-ctrl" placeholder="Call Sign" value="${escapeHTML(savedUser)}" style="width: 130px; padding: 6px 10px; font-size: 0.85rem;">
-                                        <input type="text" id="comment_text_${post.id}" class="input-ctrl" placeholder="Input reply logs..." style="flex-grow: 1; padding: 6px 10px; font-size: 0.85rem;">
-                                        <button class="btn btn-primary btn-sm" onclick="submitComment(${post.id})">Reply</button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="thread-footer-meta">
-                                <div class="meta-tag"><i class="fa-solid fa-user"></i> <span>${escapeHTML(post.username || 'Anonymous')}</span></div>
-                                <div class="meta-tag"><i class="fa-solid fa-clock"></i> <span>${postDate}</span></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>`;
-        });
-
-        container.innerHTML = html;
-
-        const mainUserField = document.getElementById('forumUser');
-        if (mainUserField && savedUser && !mainUserField.value) {
-            mainUserField.value = savedUser;
-        }
+        if (error) throw error;
+        
+        textEl.value = ''; 
+        
+        setTimeout(async () => {
+            await loadComments(postId);
+        }, 300);
 
     } catch (err) {
-        console.error("Error loading posts:", err);
-        updateStatus(false);
+        alert("Failed to push comment node: " + err.message);
     }
 }
 

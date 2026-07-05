@@ -504,13 +504,15 @@ async function submitComment(postId) {
         if (error) throw error;
         
         textEl.value = ''; 
-        await loadComments(postId); 
-        await loadPosts();
+        
+        setTimeout(async () => {
+            await loadComments(postId);
+        }, 300);
+
     } catch (err) {
         alert("Failed to push comment node: " + err.message);
     }
 }
-
 async function createPost() {
     if (!supabaseClient) return;
 

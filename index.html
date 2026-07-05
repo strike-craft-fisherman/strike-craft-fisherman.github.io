@@ -3,400 +3,538 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Strike Craft Fisherman | Professional Angling & Gear Insights</title>
+    <title>Strike Craft Fisherman | Premium Engineering & Angling Forum</title>
+    <meta name="description" content="15 years of hardcore predator fishing experience, custom wood-carving blueprints, and premium field-tested lake strategies.">
+    
+    <!-- Google Fonts & FontAwesome Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <style>
-        body, h1, h2, h3, p, ul, li { margin: 0; padding: 0; }
-        body { font-family: 'Open Sans', sans-serif; background-color: #f4f7f6; color: #333; line-height: 1.6; }
-        a { text-decoration: none; color: inherit; }
-        ul { list-style: none; }
-        html { scroll-behavior: smooth; }
-        
         :root {
-            --primary-blue: #1b365d;
-            --accent-teal: #1c7c7c;
-            --accent-gold: #f2a900;
-            --bg-grey: #f8f9fa;
-            --border-color: #e3e6ec;
-            --text-main: #2d3748;
-            --text-muted: #718096;
-            --safety-red: #c53030;
-            --blueprint-blue: #0f2b5c;
+            --bg-base: #0f172a;
+            --bg-surface: #1e293b;
+            --bg-surface-elevated: #334155;
+            --brand-primary: #38bdf8;
+            --brand-secondary: #0ea5e9;
+            --accent-gold: #fbbf24;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --text-dark: #0f172a;
+            --border-glow: rgba(56, 189, 248, 0.2);
+            --border-subtle: #334155;
+            --success: #10b981;
+            --error: #ef4444;
+            --font-mono: 'JetBrains Mono', monospace;
         }
 
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: var(--bg-base); color: var(--text-main); line-height: 1.6; padding-bottom: 60px; }
+        a { text-decoration: none; color: inherit; transition: color 0.2s; }
         
-        header { background-color: var(--primary-blue); padding: 25px 0; border-bottom: 1px solid rgba(255,255,255,0.1); position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        header .container { display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-size: 1.8rem; font-weight: 800; color: var(--accent-gold); letter-spacing: 1px; }
-        .nav { display: flex; gap: 25px; }
-        .nav a { font-weight: 600; color: white; font-size: 0.9rem; text-transform: uppercase; transition: color 0.2s; }
-        .nav a:hover { color: var(--accent-gold); }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg-base); }
+        ::-webkit-scrollbar-thumb { background: var(--border-subtle); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
 
-        .hero { background: linear-gradient(rgba(27, 54, 93, 0.85), rgba(27, 54, 93, 0.85)), url('https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=1200&q=80') no-repeat center center/cover; color: white; padding: 90px 0; text-align: center; }
-        .hero h1 { font-size: 42px; margin-bottom: 15px; letter-spacing: 1px; font-weight: 800; }
-        .hero p { font-size: 18px; color: var(--accent-gold); font-weight: 500; max-width: 700px; margin: 0 auto; line-height: 1.4; }
+        .container { max-width: 1300px; margin: 0 auto; padding: 0 24px; }
 
-        .main-wrapper { display: flex; gap: 40px; padding: 40px 0; flex-wrap: wrap; }
-        .content-main { flex: 2.5; min-width: 300px; }
-        .sidebar { flex: 1.2; display: flex; flex-direction: column; gap: 30px; min-width: 300px; }
+        header { background: rgba(30, 41, 59, 0.8); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border-subtle); position: sticky; top: 0; z-index: 1000; transition: all 0.3s; }
+        header .container { display: flex; justify-content: space-between; align-items: center; height: 80px; }
+        .logo { font-size: 1.5rem; font-weight: 800; color: white; display: flex; align-items: center; gap: 10px; }
+        .logo span { color: var(--brand-primary); }
+        .nav-links { display: flex; gap: 32px; list-style: none; }
+        .nav-links a { font-weight: 600; font-size: 0.95rem; color: var(--text-muted); padding: 8px 0; position: relative; }
+        .nav-links a:hover, .nav-links a.active { color: var(--text-main); }
+        .nav-links a::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background: var(--brand-primary); transition: width 0.2s; }
+        .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
 
-        .section-block { scroll-margin-top: 110px; margin-bottom: 40px; background: white; padding: 35px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
-        .article-meta { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 10px; font-weight: 600; text-transform: uppercase; }
-        h2 { font-size: 1.6rem; color: var(--primary-blue); margin: 10px 0 20px 0; font-weight: 700; padding-bottom: 8px; border-bottom: 2px solid var(--accent-gold); }
-        h3 { font-size: 1.2rem; color: var(--primary-blue); margin: 25px 0 10px 0; font-weight: 700; }
-        p { margin-bottom: 20px; color: var(--text-main); font-size: 1.05rem; }
+        .hero { padding: 80px 0 60px 0; background: radial-gradient(circle at top right, rgba(56, 189, 248, 0.08), transparent 45%); text-align: center; border-bottom: 1px solid var(--border-subtle); }
+        .hero h1 { font-size: 3.5rem; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 16px; background: linear-gradient(to right, #fff, #94a3b8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .hero p { font-size: 1.2rem; color: var(--text-muted); max-width: 750px; margin: 0 auto; font-weight: 400; }
 
-        .info-box { background: var(--bg-grey); padding: 20px; border-radius: 6px; border-left: 4px solid var(--accent-teal); margin-bottom: 20px; }
-        .info-box.safety { border-left-color: var(--safety-red); background-color: #fffaf0; }
-        .info-list { padding-left: 20px; margin-bottom: 10px; }
-        .info-list li { margin-bottom: 6px; color: var(--text-main); font-size: 0.95rem; }
+        .grid-layout { display: grid; grid-template-columns: 2.5fr 1fr; gap: 32px; margin-top: 40px; }
+        @media (max-width: 968px) { .grid-layout { grid-template-columns: 1fr; } }
 
-        .matrix-table { width: 100%; border-collapse: collapse; margin: 25px 0; font-size: 0.95rem; }
-        .matrix-table th, .matrix-table td { padding: 12px 15px; text-align: left; border: 1px solid var(--border-color); }
-        .matrix-table th { background-color: var(--primary-blue); color: white; font-weight: 600; }
-        .matrix-table tr:nth-child(even) { background-color: var(--bg-grey); }
+        .card { background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: 16px; padding: 32px; margin-bottom: 32px; box-shadow: 0 4px 30px rgba(0,0,0,0.2); transition: border-color 0.3s; }
+        .card:hover { border-color: rgba(56, 189, 248, 0.3); }
+        .card-title { font-size: 1.5rem; font-weight: 700; margin-bottom: 24px; display: flex; align-items: center; gap: 12px; }
+        .card-title i { color: var(--brand-primary); }
 
-        .showcase-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-top: 20px; }
-        .showcase-item { background: var(--bg-grey); border: 1px solid var(--border-color); border-radius: 6px; overflow: hidden; text-align: center; padding-bottom: 15px; display: flex; flex-direction: column; justify-content: space-between; }
-        .showcase-img { width: 100%; height: 140px; background-color: #cbd5e0; background-size: cover; background-position: center; }
-        .showcase-item h4 { margin: 12px 0 2px 0; color: var(--primary-blue); }
-        .showcase-item p { font-size: 13px; color: var(--text-muted); margin-bottom: 10px; padding: 0 10px; }
-        .blueprint-btn { margin: 0 15px; padding: 8px; background: var(--accent-teal); color: white; font-size: 11px; font-weight: bold; border-radius: 4px; text-transform: uppercase; transition: background 0.2s; cursor: pointer; border: none; }
-        .blueprint-btn:hover { background: var(--primary-blue); }
+        .matrix-container { overflow-x: auto; border-radius: 12px; border: 1px solid var(--border-subtle); margin: 20px 0; }
+        .matrix-table { width: 100%; border-collapse: collapse; text-align: left; font-size: 0.95rem; }
+        .matrix-table th { background: #1e293b; padding: 16px; color: var(--brand-primary); font-weight: 700; border-bottom: 2px solid var(--border-subtle); }
+        .matrix-table td { padding: 16px; border-bottom: 1px solid var(--border-subtle); background: rgba(15, 23, 42, 0.3); }
+        .matrix-table tr:last-child td { border-bottom: none; }
 
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.75); z-index: 1000; justify-content: center; align-items: center; padding: 20px; box-sizing: border-box; }
-        .modal-content { background: var(--blueprint-blue); color: #a4c2f4; padding: 30px; border-radius: 8px; max-width: 650px; width: 100%; border: 3px solid #3c78d8; box-shadow: 0 10px 30px rgba(0,0,0,0.5); position: relative; font-family: monospace; }
-        .modal-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed #3c78d8; padding-bottom: 10px; margin-bottom: 20px; }
-        .modal-title { color: #fff; font-size: 1.3rem; font-weight: bold; }
-        .close-btn { background: none; border: none; color: #fff; font-size: 1.5rem; cursor: pointer; }
-        .close-btn:hover { color: var(--accent-gold); }
-        .blueprint-canvas { width: 100%; height: 220px; background-color: #0b1d3a; border: 1px solid #3c78d8; background-image: linear-gradient(#142d54 1px, transparent 1px), linear-gradient(90deg, #142d54 1px, transparent 1px); background-size: 20px 20px; display: flex; justify-content: center; align-items: center; margin-bottom: 15px; border-radius: 4px; }
-        .blueprint-specs { font-size: 13px; line-height: 1.5; color: #cbd5e0; background: rgba(0,0,0,0.2); padding: 15px; border-radius: 4px; border-left: 3px solid var(--accent-gold); }
-
-        .guides-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin-top: 20px; }
-        .guide-item { background: var(--bg-grey); border: 1px solid var(--border-color); padding: 20px; border-radius: 6px; }
-        .guide-item p { font-size: 0.95rem; color: var(--text-main); margin-top: 5px; }
-
-        .forum-list { margin-top: 20px; }
-        .forum-thread { border: 1px solid var(--border-color); border-radius: 6px; margin-bottom: 12px; overflow: hidden; background: #fff; }
-        .thread-header { display: flex; justify-content: space-between; padding: 15px; cursor: pointer; transition: background 0.2s; }
-        .thread-header:hover { background: var(--bg-grey); }
-        .thread-info { display: flex; flex-direction: column; }
-        .thread-meta { font-size: 12px; color: var(--text-muted); margin-top: 4px; }
-        .thread-replies { background: var(--bg-grey); padding: 5px 12px; border-radius: 20px; font-size: 13px; font-weight: bold; color: var(--primary-blue); align-self: center; border: 1px solid var(--border-color); }
-        .thread-content { display: none; padding: 20px; background: var(--bg-grey); border-top: 1px dashed var(--border-color); }
-        .forum-post { margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px solid var(--border-color); }
-        .post-author { font-weight: bold; color: var(--primary-blue); font-size: 14px; }
-        .post-text { margin-top: 5px; color: var(--text-main); }
+        .blueprint-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
+        .bp-card { background: rgba(15, 23, 42, 0.5); border: 1px solid var(--border-subtle); border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; transition: transform 0.2s, border-color 0.2s; }
+        .bp-card:hover { transform: translateY(-4px); border-color: var(--brand-primary); }
+        .bp-thumb { height: 140px; background-size: cover; background-position: center; position: relative; }
+        .bp-thumb::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, var(--bg-surface), transparent); }
+        .bp-meta { padding: 16px; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between; }
+        .bp-meta h4 { font-size: 1.1rem; margin-bottom: 6px; }
+        .bp-meta p { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 16px; }
         
-        .forum-form { background: var(--bg-grey); border: 1px solid var(--border-color); padding: 25px; border-radius: 6px; margin-top: 30px; }
-        .textarea-field, .input-field, .select-field { width: 100%; padding: 10px; border: 1px solid var(--border-color); border-radius: 4px; font-size: 0.9rem; background-color: white; box-sizing: border-box; font-family: inherit; }
-        .textarea-field { resize: vertical; min-height: 90px; }
-        .form-group { margin-bottom: 15px; }
-        .form-group label { display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 5px; color: var(--text-main); }
+        .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 10px 20px; border-radius: 8px; font-weight: 600; font-size: 0.9rem; cursor: pointer; transition: all 0.2s; border: none; }
+        .btn-primary { background: var(--brand-primary); color: var(--text-dark); }
+        .btn-primary:hover { background: var(--brand-secondary); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(56, 189, 248, 0.3); }
+        .btn-secondary { background: var(--bg-surface-elevated); color: var(--text-main); }
+        .btn-secondary:hover { background: #475569; }
+        .btn-sm { padding: 6px 12px; font-size: 0.8rem; border-radius: 6px; }
 
-        .author-box { display: flex; gap: 20px; background-color: var(--bg-grey); padding: 25px; border-radius: 6px; border-left: 5px solid var(--accent-teal); margin-top: 40px; }
-        .author-avatar { width: 70px; height: 70px; background-color: #cbd5e0; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; color: white; font-size: 1.5rem; flex-shrink: 0; }
-        .author-info h4 { font-size: 1.1rem; color: var(--primary-blue); margin-bottom: 5px; }
-        .author-badge { background-color: var(--accent-teal); color: white; font-size: 0.75rem; padding: 2px 8px; border-radius: 10px; margin-left: 10px; vertical-align: middle; }
-        .author-bio { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 0; }
-
-        .widget { background-color: white; padding: 25px; border-radius: 8px; border: 1px solid var(--border-color); box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
-        .widget h3 { font-size: 1.1rem; color: var(--primary-blue); margin-top: 0; margin-bottom: 15px; text-transform: uppercase; font-weight: 700; border-bottom: 2px solid var(--accent-gold); padding-bottom: 8px; }
+        .forum-controls { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-subtle); padding-bottom: 16px; margin-bottom: 24px; gap: 16px; flex-wrap: wrap; }
+        .forum-tabs { display: flex; gap: 8px; background: rgba(15, 23, 42, 0.6); padding: 4px; border-radius: 8px; border: 1px solid var(--border-subtle); }
+        .forum-tab { padding: 8px 16px; font-weight: 600; font-size: 0.85rem; border-radius: 6px; cursor: pointer; transition: all 0.2s; color: var(--text-muted); }
+        .forum-tab.active { background: var(--bg-surface-elevated); color: var(--text-main); box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
         
-        .selector-btn { width: 100%; padding: 12px; background-color: var(--accent-teal); color: white; border: none; border-radius: 4px; font-weight: 600; cursor: pointer; transition: background 0.2s; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 0.5px; }
-        .selector-btn:hover { background-color: var(--primary-blue); }
-        .selector-result { margin-top: 15px; padding: 12px; background-color: var(--bg-grey); border-radius: 4px; border-left: 3px solid var(--accent-teal); display: none; font-size: 0.9rem; font-weight: 600; color: var(--primary-blue); }
+        .db-status { display: flex; align-items: center; gap: 8px; font-size: 0.8rem; font-weight: 600; padding: 6px 12px; border-radius: 20px; background: rgba(239, 68, 68, 0.1); color: var(--error); border: 1px solid rgba(239, 68, 68, 0.2); }
+        .db-status.online { background: rgba(16, 185, 129, 0.1); color: var(--success); border: 1px solid rgba(16, 185, 129, 0.2); }
+        .db-status .dot { width: 8px; height: 8px; border-radius: 50%; background: currentColor; box-shadow: 0 0 8px currentColor; }
 
-        footer { background-color: var(--primary-blue); color: #ffffff; padding: 40px 0; text-align: center; font-size: 0.85rem; margin-top: 60px; }
+        .thread-item { background: rgba(15, 23, 42, 0.4); border: 1px solid var(--border-subtle); border-radius: 12px; padding: 20px; margin-bottom: 16px; cursor: pointer; transition: all 0.2s; position: relative; }
+        .thread-item:hover { border-color: rgba(56, 189, 248, 0.4); background: rgba(30, 41, 59, 0.3); }
+        .thread-main-row { display: flex; gap: 16px; align-items: flex-start; }
+        .author-avatar-circle { width: 44px; height: 44px; border-radius: 50%; background: linear-gradient(135deg, var(--brand-primary), var(--brand-secondary)); display: flex; align-items: center; justify-content: center; font-weight: 700; color: var(--text-dark); font-size: 1.1rem; text-transform: uppercase; flex-shrink: 0; box-shadow: 0 4px 10px rgba(0,0,0,0.15); }
+        .thread-core { flex-grow: 1; }
+        .thread-title-line { font-size: 1.15rem; font-weight: 700; color: var(--text-main); margin-bottom: 6px; display: flex; align-items: center; gap: 10px; }
+        .thread-body-preview { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 12px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis; line-height: 1.5; }
+        .thread-footer-meta { display: flex; gap: 16px; font-size: 0.8rem; color: var(--text-muted); align-items: center; flex-wrap: wrap; }
+        .meta-tag { display: flex; align-items: center; gap: 6px; }
+        .meta-tag i { color: var(--brand-primary); }
+        
+        .thread-actions { display: flex; gap: 12px; margin-top: 14px; padding-top: 12px; border-top: 1px solid rgba(51, 65, 85, 0.4); justify-content: flex-end; }
+        .action-icon-btn { background: none; border: none; color: var(--text-muted); cursor: pointer; display: flex; align-items: center; gap: 6px; font-size: 0.8rem; font-weight: 600; padding: 4px 8px; border-radius: 4px; transition: all 0.2s; }
+        .action-icon-btn:hover { color: var(--brand-primary); background: rgba(56, 189, 248, 0.08); }
+
+        .thread-item.expanded { background: var(--bg-surface-elevated); border-color: var(--brand-primary); cursor: default; }
+        .thread-item.expanded .thread-body-preview { -webkit-line-clamp: unset; display: block; overflow: visible; color: var(--text-main); background: rgba(15, 23, 42, 0.3); padding: 16px; border-radius: 8px; border-left: 3px solid var(--brand-primary); margin-top: 8px; }
+
+        .form-box { background: rgba(15, 23, 42, 0.5); border: 1px solid var(--border-subtle); border-radius: 12px; padding: 24px; margin-top: 32px; }
+        .form-box h3 { font-size: 1.25rem; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+        .form-row { margin-bottom: 16px; position: relative; }
+        .form-row label { display: block; font-size: 0.8rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; margin-bottom: 6px; letter-spacing: 0.5px; }
+        .input-ctrl { width: 100%; padding: 12px 16px; background: var(--bg-base); border: 1px solid var(--border-subtle); border-radius: 8px; color: white; font-family: inherit; font-size: 0.95rem; transition: all 0.2s; }
+        .input-ctrl:focus { outline: none; border-color: var(--brand-primary); box-shadow: 0 0 0 3px var(--border-glow); }
+        .textarea-ctrl { min-height: 120px; resize: vertical; }
+        .char-counter { position: absolute; bottom: 8px; right: 12px; font-size: 0.75rem; color: var(--text-muted); pointer-events: none; }
+
+        .modal { display: none; position: fixed; inset: 0; background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(8px); z-index: 2000; justify-content: center; align-items: center; padding: 20px; }
+        .modal-content { background: #0b1329; border: 2px solid #1e3a8a; box-shadow: 0 0 40px rgba(14, 165, 233, 0.2); border-radius: 16px; max-width: 700px; width: 100%; padding: 32px; font-family: var(--font-mono); position: relative; color: #93c5fd; }
+        .modal-close { position: absolute; top: 20px; right: 20px; background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer; }
+        .blueprint-canvas { width: 100%; height: 240px; background: #030712; border: 1px dashed #1d4ed8; border-radius: 8px; display: flex; align-items: center; justify-content: center; margin: 20px 0; }
+        .blueprint-specs { background: rgba(30, 41, 59, 0.6); padding: 16px; border-radius: 8px; border-left: 4px solid var(--accent-gold); color: var(--text-main); font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.9rem; }
+
+        .widget { background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: 16px; padding: 24px; margin-bottom: 24px; box-shadow: 0 4px 20px rgba(0,0,0,0.15); }
+        .widget-title { font-size: 1.1rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 2px solid var(--border-subtle); padding-bottom: 12px; margin-bottom: 16px; color: var(--brand-primary); }
+        .select-ctrl { width: 100%; padding: 10px; background: var(--bg-base); border: 1px solid var(--border-subtle); border-radius: 6px; color: white; font-family: inherit; margin-bottom: 12px; }
+        .widget-result { padding: 12px; background: rgba(56, 189, 248, 0.08); border: 1px dashed var(--brand-primary); border-radius: 8px; display: none; font-size: 0.9rem; font-weight: 600; color: var(--brand-primary); text-align: center; }
+
+        footer { border-top: 1px solid var(--border-subtle); padding: 40px 0; margin-top: 80px; text-align: center; color: var(--text-muted); font-size: 0.85rem; }
+        footer a { color: var(--brand-primary); font-weight: 600; }
+        footer a:hover { color: var(--brand-secondary); }
     </style>
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght=400;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
 
     <header>
         <div class="container">
-            <a href="#" class="logo">STRIKE CRAFT</a>
-            <ul class="nav">
-                <li><a href="#tactics">Tactics</a></li>
-                <li><a href="#diy-corner">DIY Corner</a></li>
-                <li><a href="#guides">Guides</a></li>
-                <li><a href="#forum">Forum</a></li>
+            <a href="#" class="logo">STRIKE<span>CRAFT</span></a>
+            <ul class="nav-links">
+                <li><a href="#tactics" class="active">Tactics</a></li>
+                <li><a href="#diy">DIY Laboratory</a></li>
+                <li><a href="#forum-section">Community Hub</a></li>
             </ul>
         </div>
     </header>
 
     <section class="hero">
-        <h1>Handcrafted Lures & Fishing Tactics</h1>
-        <p>15 years of hardcore predator fishing experience, custom wood-carving secrets, and field-tested lake strategies brought directly to your workbench.</p>
+        <div class="container">
+            <h1>Advanced Predator Engineering</h1>
+            <p>Field-tested lake strategies, internal ballast physics, and architectural woodworking formulas brought directly to your workbench.</p>
+        </div>
     </section>
 
     <div class="container">
-        <div class="main-wrapper">
+        <div class="grid-layout">
             
-            <main class="content-main">
-                <article>
+            <main>
+                <div id="tactics" class="card">
+                    <div class="card-title"><i class="fa-solid fa-compass"></i> Predator Target Profiles</div>
+                    <p>To consistently track and intercept apex freshwater predators, an angler must move past generic parameters. Success relies heavily on targeting boundaries where thermal changes and physical cover collide.</p>
                     
-                    <div id="tactics" class="section-block">
-                        <div class="article-meta">Advanced Tactics & Technical Guide</div>
-                        <h2>Tactics for Predator Fish: Locating and Engaging Key Species</h2>
-                        <p>To consistently land elite freshwater predators, an angler must move past guesswork. Success relies heavily on understanding how shifting water parameters and structural boundaries dictate predatory hunting cycles.</p>
-                        
-                        <h3>Strategic Ambush Zones</h3>
-                        <p>Predatory species like Northern Pike and Trophy Bass are highly efficient hunters. They position themselves along distinct structural edges to minimize energy output while maximizing striking speed.</p>
-                        
-                        <h3>The Target Matrix: Depth & Water Clarity</h3>
+                    <div class="matrix-container">
                         <table class="matrix-table">
                             <thead>
                                 <tr>
                                     <th>Water Condition</th>
-                                    <th>Depth Zone</th>
-                                    <th>Predator Behavior</th>
-                                    <th>Presentation Strategy</th>
+                                    <th>Depth Layer</th>
+                                    <th>Behavior Pattern</th>
+                                    <th>Engineering Vector</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>Heavy Stain / Muddy</td>
+                                    <td>Heavy Stain / Turbid</td>
                                     <td>Shallow (1-3 ft)</td>
-                                    <td>Tight to heavy cover, relying on vibration</td>
-                                    <td>Aggressive thumping, dark profile lures</td>
+                                    <td>Tight to heavy logs, tracking via lateral vibration</td>
+                                    <td>Aggressive wide thumping, max silhouette lines</td>
                                 </tr>
                                 <tr>
-                                    <td>Clear / High Visibility</td>
+                                    <td>High Vis Crystal</td>
                                     <td>Deep Edge (8-15 ft)</td>
-                                    <td>Suspended, visually tracking prey over distance</td>
-                                    <td>Natural finishes, erratic high-speed retrieves</td>
-                                </tr>
-                                <tr>
-                                    <td>Low-Light / Overcast</td>
-                                    <td>Mid-Range (4-8 ft)</td>
-                                    <td>Actively patrolling transition structures</td>
-                                    <td>Steady tracking, medium-depth diving minnows</td>
+                                    <td>Suspended, visually observing large areas</td>
+                                    <td>Natural translucent texturing, fast sweep retrieval</td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
+                </div>
 
-                    <div id="diy-corner" class="section-block">
-                        <div class="article-meta">Open-Source Workshop</div>
-                        <h2>The DIY Bench: Free Blueprints & Schematics</h2>
-                        <p>No paywalls, no shops. Grab the verified carving schematics, printable trace-patterns, and internal weight placements for my signature tournament-winning builds.</p>
-                        
-                        <div class="info-box">
-                            <h3 style="margin-top:0; font-size:1.1rem; color: var(--accent-teal);">Essential Workbench Tools</h3>
-                            <ul class="info-list">
-                                <li><strong>Carving Knife / Coping Saw:</strong> For profiling wood blanks (Balsa, Cedar, or Pine).</li>
-                                <li><strong>Sandpaper (120 to 400 grit):</strong> Crucial for smooth hydrodynamic finishes.</li>
-                                <li><strong>Hand Drill & Wire Twister:</strong> To install internal brass or stainless hook hangers.</li>
-                                <li><strong>Airbrush or Fine Brushes:</strong> For applying custom scale patterns and flash colors.</li>
-                            </ul>
-                        </div>
-
-                        <div class="info-box safety">
-                            <h3 style="margin-top:0; font-size:1.1rem; color: var(--safety-red);">⚠️ Workshop Safety First</h3>
-                            <ul class="info-list">
-                                <li><strong>Respiratory Protection:</strong> Always wear a dust mask when sanding cedar or balsa—fine wood dust is hazardous.</li>
-                                <li><strong>Ventilation:</strong> Apply epoxy topcoats and solvent paints only in well-ventilated areas.</li>
-                                <li><strong>Blade Safety:</strong> Always carve away from your body; sharp tools require focus and leather carving gloves are highly recommended.</li>
-                            </ul>
-                        </div>
-
-                        <div class="showcase-grid">
-                            <div class="showcase-item">
-                                <div class="showcase-img" style="background-image: url('https://images.unsplash.com/photo-1517462964-21fdcec3f25b?auto=format&fit=crop&w=300&q=80')"></div>
-                                <h4>The 'Huron Perch'</h4>
-                                <p>130mm Glidebait. Slow sinking, perfect wide S-curve sweep.</p>
-                                <button class="blueprint-btn" onclick="openBlueprint('perch')">Open Blueprint</button>
-                            </div>
-                            <div class="showcase-item">
-                                <div class="showcase-img" style="background-image: url('https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=300&q=80')"></div>
-                                <h4>'Zombie Shad'</h4>
-                                <p>110mm Minnow. Perfectly suspending belly weight layout.</p>
-                                <button class="blueprint-btn" onclick="openBlueprint('shad')">Open Blueprint</button>
-                            </div>
-                            <div class="showcase-item">
-                                <div class="showcase-img" style="background-image: url('https://images.unsplash.com/photo-1505594042455-b90294024505?auto=format&fit=crop&w=300&q=80')"></div>
-                                <h4>'Deep Reactor'</h4>
-                                <p>Squarebill Crankbait. High-buoyancy cedar profile mapping.</p>
-                                <button class="blueprint-btn" onclick="openBlueprint('crank')">Open Blueprint</button>
-                            </div>
-                        </div>
-
-                        <div class="forum-form" style="margin-top: 35px; border-left: 4px solid var(--accent-teal);">
-                            <h3 style="margin-top:0; color: var(--primary-blue);">Workbench Tool: Lure Ballast Calculator</h3>
-                            <p style="font-size:14px; color: var(--text-muted); margin-bottom: 15px;">Calculate how much lead ballast target weight you roughly need based on your raw wooden blank material to achieve stable balancing.</p>
-                            
-                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px;">
-                                <div class="form-group">
-                                    <label for="woodType">Wood Selection</label>
-                                    <select id="woodType" class="select-field">
-                                        <option value="balsa">Balsa Wood (Very High Buoyancy)</option>
-                                        <option value="cedar">Red Cedar (Medium Buoyancy)</option>
-                                        <option value="pine">White Pine (Low Buoyancy)</option>
-                                    </select>
+                <div id="diy" class="card">
+                    <div class="card-title"><i class="fa-solid fa-flask-vial"></i> Open-Source Blueprint Vault</div>
+                    <p>No subscriptions, no tokens. Access verified hydrodynamic profile mappings, balance points, and vector schematics for proven lure builds.</p>
+                    
+                    <div class="blueprint-grid" style="margin-top: 24px;">
+                        <div class="bp-card">
+                            <div class="bp-thumb" style="background-image: url('https://images.unsplash.com/photo-1517462964-21fdcec3f25b?auto=format&fit=crop&w=300&q=80')"></div>
+                            <div class="bp-meta">
+                                <div>
+                                    <h4>Huron Perch</h4>
+                                    <p>130mm Glidebait. Perfectly mapped wide S-curve tracking line.</p>
                                 </div>
-                                <div class="form-group">
-                                    <label for="blankWeight">Blank Weight (grams)</label>
-                                    <input type="number" id="blankWeight" class="input-field" value="15" min="1">
+                                <button class="btn btn-primary btn-sm" onclick="openBlueprint('perch')"><i class="fa-solid fa-bezier-curve"></i> Inspect Layout</button>
+                            </div>
+                        </div>
+                        <div class="bp-card">
+                            <div class="bp-thumb" style="background-image: url('https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=300&q=80')"></div>
+                            <div class="bp-meta">
+                                <div>
+                                    <h4>Zombie Shad</h4>
+                                    <p>110mm Minnow. Suspending internal weight configuration matrix.</p>
                                 </div>
-                            </div>
-                            <button class="selector-btn" style="background-color: var(--primary-blue); margin-top: 5px;" onclick="calculateBallast()">Calculate Ballast Weight</button>
-                            <div id="ballastResult" class="selector-result" style="margin-top: 15px;"></div>
-                        </div>
-                    </div>
-
-                    <div id="blueprintModal" class="modal">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <span class="modal-title" id="modalTitle">Lure Blueprint</span>
-                                <button class="close-btn" onclick="closeBlueprint()">✕</button>
-                            </div>
-                            <div class="blueprint-canvas" id="modalCanvas"></div>
-                            <div class="blueprint-specs" id="modalSpecs">Specs loading...</div>
-                        </div>
-                    </div>
-
-                    <div id="guides" class="section-block">
-                        <h2>Lure Making & Technical Guides</h2>
-                        <p>Explore our deep-dive technical manuals for shaping, weighting, and painting your own handcrafted custom lures.</p>
-                        <div class="guides-grid">
-                            <div class="guide-item">
-                                <h3>Carving Wooden Jerkbaits</h3>
-                                <p>A step-by-step walkthrough on selecting the best balsa or cedar wood, profiling, and balancing internal weights.</p>
-                            </div>
-                            <div class="guide-item">
-                                <h3>Airbrushing Scale Patterns</h3>
-                                <p>Advanced techniques using mesh netting and stencils to create lifelike perch and shad skin textures.</p>
-                            </div>
-                            <div class="guide-item">
-                                <h3>Epoxy Coating Masterclass</h3>
-                                <p>How to apply clear coats smoothly without sagging, bubbles, or losing the action of the bait.</p>
+                                <button class="btn btn-primary btn-sm" onclick="openBlueprint('shad')"><i class="fa-solid fa-bezier-curve"></i> Inspect Layout</button>
                             </div>
                         </div>
                     </div>
 
-                    <div id="forum" class="section-block">
-                        <h2>Community Forum Discussions</h2>
-                        <p>Click on any thread below to read the discussion, or use the form below to start your own topic dynamically!</p>
-                        
-                        <div class="forum-list" id="forumContainer"></div>
+                    <div class="form-box" style="margin-top: 32px; border-left: 4px solid var(--accent-gold);">
+                        <h3><i class="fa-solid fa-calculator"></i> Hydrodynamic Ballast Calculator</h3>
+                        <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 16px;">Calculate lead target weight parameters based on wood blank grain volume metrics.</p>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                            <div class="form-row">
+                                <label>Timber Selection</label>
+                                <select id="woodType" class="select-ctrl">
+                                    <option value="balsa">Balsa Wood (High Floating Density)</option>
+                                    <option value="cedar">Red Cedar (Medium Density Range)</option>
+                                    <option value="pine">White Pine (Dense Structural Base)</option>
+                                </select>
+                            </div>
+                            <div class="form-row">
+                                <label>Raw Blank Weight (g)</label>
+                                <input type="number" id="blankWeight" class="input-ctrl" value="15" min="1">
+                            </div>
+                        </div>
+                        <button class="btn btn-secondary" onclick="calculateBallast()" style="width: 100%;">Compute Required Mass</button>
+                        <div id="ballastResult" class="widget-result" style="margin-top: 16px;"></div>
+                    </div>
+                </div>
 
-                        <div class="forum-form">
-                            <h3 style="margin-top: 0; margin-bottom: 15px;">Start a New Discussion</h3>
-                            <div class="form-group">
-                                <label for="forumUser">Your Username</label>
-                                <input type="text" id="forumUser" class="input-field" placeholder="e.g., PikeHunter_99">
-                            </div>
-                            <div class="form-group">
-                                <label for="forumTopic">Topic Title / Question</label>
-                                <input type="text" id="forumTopic" class="input-field" placeholder="What is your topic about?">
-                            </div>
-                            <div class="form-group">
-                                <label for="forumText">Your Message</label>
-                                <textarea id="forumText" class="textarea-field" placeholder="Describe your question..."></textarea>
-                            </div>
-                            <button id="submitPostBtn" class="selector-btn" onclick="createPost()">Post Message</button>
+                <div id="forum-section" class="card">
+                    <div class="card-title"><i class="fa-solid fa-comments"></i> Engineering & Build Forum</div>
+                    <p style="margin-bottom: 20px;">Synchronized live community network. Share wire layouts, failure analysis, and chemical topcoat findings.</p>
+                    
+                    <div class="forum-controls">
+                        <div class="forum-tabs">
+                            <div class="forum-tab active" id="tabAll" onclick="switchTab('all')"><i class="fa-solid fa-globe"></i> All Threads</div>
+                            <div class="forum-tab" id="tabMy" onclick="switchTab('my')"><i class="fa-solid fa-user-astronaut"></i> My Submissions</div>
+                        </div>
+                        <div id="dbStatus" class="db-status">
+                            <div class="dot"></div> <span id="statusText">Connecting Database Cache...</span>
                         </div>
                     </div>
 
-                    <div class="author-box">
-                        <div class="author-avatar">IM</div>
-                        <div class="author-info">
-                            <h4>Ian Miller <span class="author-badge">Verified Expert</span></h4>
-                            <p class="author-bio">Ian is an international pro angler and lure design consultant with over 15 years of tournament experience specializing in apex predator habits and tracking systems.</p>
-                        </div>
-                    </div>
+                    <div id="forumContainer"></div>
 
-                </article>
+                    <div class="form-box">
+                        <h3><i class="fa-solid fa-pen-to-square"></i> Initialize New Engineering Thread</h3>
+                        <div class="form-row">
+                            <label><i class="fa-solid fa-id-badge"></i> Call Sign / Username</label>
+                            <input type="text" id="forumUser" class="input-ctrl" placeholder="e.g., AeroCrafter_84">
+                        </div>
+                        <div class="form-row">
+                            <label><i class="fa-solid fa-heading"></i> Structural Topic Title</label>
+                            <input type="text" id="forumTopic" class="input-ctrl" placeholder="Core problem statement or build name">
+                        </div>
+                        <div class="form-row">
+                            <label><i class="fa-solid fa-envelope-open-text"></i> Technical Message / Data Logs</label>
+                            <textarea id="forumText" class="input-ctrl textarea-ctrl" maxlength="600" oninput="updateCharCount()" placeholder="Describe exact weight balance, layers, angles or problem metrics..."></textarea>
+                            <div class="char-counter" id="charCount">0 / 600</div>
+                        </div>
+                        <button id="submitPostBtn" class="btn btn-primary" onclick="createPost()"><i class="fa-solid fa-paper-plane"></i> Broadcast Thread</button>
+                    </div>
+                </div>
             </main>
 
-            <aside class="sidebar">
+            <aside>
                 <div class="widget">
-                    <h3>Smart Lure Selector</h3>
-                    <div class="form-group">
-                        <label for="target">Target Species</label>
-                        <select id="target" class="select-field">
+                    <div class="widget-title"><i class="fa-solid fa-microchip"></i> Vector Selector</div>
+                    <div class="form-row">
+                        <label>Target Apex</label>
+                        <select id="target" class="select-ctrl">
                             <option value="pike">Northern Pike</option>
                             <option value="bass">Largemouth Bass</option>
-                            <option value="walleye">Walleye</option>
                         </select>
                     </div>
-                    <div class="form-group">
-                        <label for="weather">Weather Condition</label>
-                        <select id="weather" class="select-field">
-                            <option value="sunny">Bright / Sunny</option>
-                            <option value="cloudy">Overcast / Dark</option>
+                    <div class="form-row">
+                        <label>Lux Level</label>
+                        <select id="weather" class="select-ctrl">
+                            <option value="sunny">High Overhead Clear</option>
+                            <option value="cloudy">Low Overcast Stained</option>
                         </select>
                     </div>
-                    <button class="selector-btn" onclick="findLure()">Get Recommendation</button>
-                    <div id="resultBox" class="selector-result"></div>
-                                        
-                    <div class="widget subscribe-widget" style="margin-top: 25px; padding: 15px; background: rgba(255,255,255,0.05); border-radius: 8px; border: 1px solid var(--border-color, #34495e);">
-                        <h3 style="color: #00ced1; font-size: 1.1rem; margin-top: 0; margin-bottom: 8px;">Join the Crew!</h3>
-                        <p style="color: #ffffff; font-size: 0.85rem; margin: 0 0 12px 0; line-height: 1.4;">Get exclusive DIY lure blueprints and technical guides straight to your inbox.</p>
-                        <input type="email" placeholder="Enter your email..." style="width: 100%; padding: 8px; margin-bottom: 10px; border-radius: 4px; border: 1px solid #34495e; background: #2c3e50; color: #fff; box-sizing: border-box;">
-                        <button style="width: 100%; padding: 8px; background: #00ced1; color: #121921; border: none; border-radius: 4px; font-weight: bold; cursor: pointer; transition: background 0.2s;" onclick="alert('Thanks for subscribing! Custom blueprints coming soon.')">Subscribe Now</button>
-                    </div>
-                    
+                    <button class="btn btn-primary" style="width: 100%;" onclick="findLure()">Run Diagnostics</button>
+                    <div id="resultBox" class="widget-result"></div>
+                </div>
+
+                <div class="widget" style="background: linear-gradient(180deg, var(--bg-surface) 0%, rgba(14, 165, 233, 0.05) 100%);">
+                    <div class="widget-title"><i class="fa-solid fa-satellite-dish"></i> Lab Dispatch</div>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 12px;">Get vector layouts directly when published.</p>
+                    <input type="email" class="input-ctrl" placeholder="Secure email channel..." style="margin-bottom: 12px;">
+                    <button class="btn btn-secondary" style="width: 100%; font-size: 0.8rem;" onclick="alert('Telemetry channel locked.')">Sync Terminal</button>
                 </div>
             </aside>
 
         </div>
     </div>
 
+    <div id="blueprintModal" class="modal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeBlueprint()">✕</button>
+            <h3 id="modalTitle">// LAYOUT SCHEMATIC</h3>
+            <div class="blueprint-canvas" id="modalCanvas"></div>
+            <div class="blueprint-specs" id="modalSpecs"></div>
+        </div>
+    </div>
+
     <footer>
         <div class="container">
-            <p>© 2026 Strike Craft Fisherman. All rights reserved. International English Edition.</p>
+            <p>© 2026 Strike Craft Fisherman. Engineering Interface Version 2.0. Clean Schema Stack.</p>
         </div>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
     <script>
         const SUPABASE_URL = 'https://fkauskwrxajzzchciaiu.supabase.co';
         const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZrYXVza3dyeGFqenpjaGNpYWl1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODMwOTU4ODQsImV4cCI6MjA5ODY3MTg4NH0.HtV0K2r9hR16FRQWVqwS5w2NLFE_ONGq3Fqxbv0UdjI';
 
         let supabaseClient;
+        let activeTab = 'all';
+        let mySubmittedIds = JSON.parse(localStorage.getItem('my_threads') || '[]');
+
         try {
             supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+            updateStatus(true);
         } catch(e) {
-            console.error("Supabase failed to initialize:", e);
+            console.error("Supabase fail:", e);
+            updateStatus(false);
+        }
+
+        function updateStatus(isOnline) {
+            const el = document.getElementById('dbStatus');
+            const txt = document.getElementById('statusText');
+            if(isOnline) {
+                el.className = "db-status online";
+                txt.innerText = "System Sync: Active";
+            } else {
+                el.className = "db-status";
+                txt.innerText = "System Sync: Cache Offline";
+            }
+        }
+
+        function escapeHTML(str) {
+            if (!str) return '';
+            return str.replace(/[&<>'"]/g, tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag));
+        }
+
+        function updateCharCount() {
+            const len = document.getElementById('forumText').value.length;
+            document.getElementById('charCount').innerText = `${len} / 600`;
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadPosts();
+        });
+
+        function switchTab(tab) {
+            activeTab = tab;
+            document.getElementById('tabAll').classList.toggle('active', tab === 'all');
+            document.getElementById('tabMy').classList.toggle('active', tab === 'my');
+            loadPosts();
+        }
+
+        async function loadPosts() {
+            if (!supabaseClient) return;
+            const container = document.getElementById('forumContainer');
+            container.innerHTML = `<div style="text-align:center; padding: 20px; color: var(--text-muted);"><i class="fa-solid fa-spinner fa-spin"></i> Reading database arrays...</div>`;
+            
+            try {
+                const { data, error } = await supabaseClient
+                    .from('forum_posts')
+                    .select('*')
+                    .order('created_at', { ascending: false });
+
+                if (error) throw error;
+                updateStatus(true);
+
+                let filteredData = data || [];
+                if (activeTab === 'my') {
+                    filteredData = filteredData.filter(post => mySubmittedIds.includes(post.id));
+                }
+
+                if (filteredData.length === 0) {
+                    container.innerHTML = `
+                        <div style="text-align:center; padding:40px; border: 1px dashed var(--border-subtle); border-radius:12px; color:var(--text-muted);">
+                            <i class="fa-solid fa-folder-open" style="font-size:2rem; margin-bottom:10px;"></i>
+                            <p>No active telemetry rows found in this array filter.</p>
+                        </div>`;
+                    return;
+                }
+
+                let html = '';
+                filteredData.forEach(post => {
+                    const postDate = post.created_at ? new Date(post.created_at).toLocaleString() : 'Recent timestamp';
+                    const initial = post.username ? post.username.charAt(0) : 'A';
+                    
+                    html += `
+                        <div class="thread-item" id="thread_${post.id}" onclick="toggleExpand(${post.id})">
+                            <div class="thread-main-row">
+                                <div class="author-avatar-circle">${escapeHTML(initial)}</div>
+                                <div class="thread-core">
+                                    <div class="thread-title-line">
+                                        ${escapeHTML(post.title || 'Untitled Thread')}
+                                    </div>
+                                    <div class="thread-body-preview" id="body_${post.id}">
+                                        ${escapeHTML(post.message || 'Empty payload message data.')}
+                                    </div>
+                                    <div class="thread-footer-meta">
+                                        <div class="meta-tag"><i class="fa-solid fa-user"></i> <span>${escapeHTML(post.username || 'Anonymous')}</span></div>
+                                        <div class="meta-tag"><i class="fa-solid fa-clock"></i> <span>${postDate}</span></div>
+                                        <div class="meta-tag"><i class="fa-solid fa-database"></i> <span>Row ID: ${post.id}</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="thread-actions">
+                                <button class="action-icon-btn" onclick="event.stopPropagation(); alert('Telemetry vote counted.')">
+                                    <i class="fa-solid fa-arrow-up"></i> Upvote
+                                </button>
+                                <button class="action-icon-btn" onclick="event.stopPropagation(); alert('Diagnostic report logged.')">
+                                    <i class="fa-solid fa-circle-exclamation"></i> Report
+                                </button>
+                            </div>
+                        </div>`;
+                });
+
+                container.innerHTML = html;
+
+            } catch (err) {
+                console.error("Error reading schema cache:", err);
+                updateStatus(false);
+                container.innerHTML = `<div style="color:var(--error); padding:20px; border:1px solid rgba(239,68,68,0.2); border-radius:12px; background:rgba(239,68,68,0.05);"><i class="fa-solid fa-triangle-exclamation"></i> Schema Array Fetch Exception: ${err.message}</div>`;
+            }
+        }
+
+        async function createPost() {
+            if (!supabaseClient) return;
+
+            const userField = document.getElementById('forumUser');
+            const topicField = document.getElementById('forumTopic');
+            const textField = document.getElementById('forumText');
+            const btn = document.getElementById('submitPostBtn');
+
+            const username = userField.value.trim();
+            const title = topicField.value.trim();
+            const message = textField.value.trim();
+
+            if (!username || !title || !message) {
+                alert("All technical schema properties must be populated.");
+                return;
+            }
+
+            btn.disabled = true;
+            btn.innerHTML = `<i class="fa-solid fa-circle-notch fa-spin"></i> Broadcasting...`;
+
+            try {
+                const { data, error } = await supabaseClient
+                    .from('forum_posts')
+                    .insert([{ username, title, message }])
+                    .select();
+
+                if (error) throw error;
+
+                if(data && data[0]) {
+                    mySubmittedIds.push(data[0].id);
+                    localStorage.setItem('my_threads', JSON.stringify(mySubmittedIds));
+                }
+
+                topicField.value = '';
+                textField.value = '';
+                document.getElementById('charCount').innerText = "0 / 600";
+                
+                await loadPosts();
+            } catch (err) {
+                console.error("Insert fail:", err);
+                alert("Broadcast abort operation fail: " + err.message);
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = `<i class="fa-solid fa-paper-plane"></i> Broadcast Thread`;
+            }
+        }
+
+        function toggleExpand(id) {
+            const card = document.getElementById(`thread_${id}`);
+            if(card) {
+                card.classList.toggle('expanded');
+            }
+        }
+
+        function calculateBallast() {
+            const type = document.getElementById('woodType').value;
+            const w = parseFloat(document.getElementById('blankWeight').value);
+            const box = document.getElementById('ballastResult');
+            if(isNaN(w) || w <= 0) return;
+            let factor = type === 'balsa' ? 1.2 : (type === 'cedar' ? 0.6 : 0.3);
+            box.innerHTML = `<i class="fa-solid fa-microchip"></i> Computed Lead Target: <strong>~${(w * factor).toFixed(1)}g</strong> total mass weight.`;
+            box.style.display = 'block';
         }
 
         function findLure() {
             const target = document.getElementById('target').value;
             const weather = document.getElementById('weather').value;
-            const resultBox = document.getElementById('resultBox');
-            let recommendation = target === 'pike' ? (weather === 'sunny' ? "🎯 Strike-Craft Shad (Silver Flash)" : "🎯 Strike-Craft Shad (Firetiger)") : "🎯 Ghost Minnow Deep Diver";
-            resultBox.innerText = recommendation;
-            resultBox.style.display = 'block';
+            const box = document.getElementById('resultBox');
+            box.innerText = target === 'pike' ? (weather === 'sunny' ? "⚡ Strike Craft Chrome 130mm" : "⚡ Strike Craft Firetiger 130mm") : "⚡ Suspended Ghost Minnow 110mm";
+            box.style.display = 'block';
         }
 
-        const blueprintsData = {
+        const blueprints = {
             perch: {
-                title: "TECHNICAL SPEC: THE 'HURON PERCH' (130mm GLIDEBAIT)",
-                svg: `<svg width="260" height="100" viewBox="0 0 260 100"><path d="M10,50 Q70,10 140,30 T250,50 Q180,85 110,80 T10,50 Z" fill="none" stroke="#6fa8dc" stroke-width="2" stroke-dasharray="4"/><circle cx="100" cy="65" r="8" fill="#f1c232" stroke="#fff" /><text x="92" y="45" fill="#fff" font-size="10">Ballast A</text><circle cx="170" cy="60" r="6" fill="#f1c232" stroke="#fff" /><text x="160" y="45" fill="#fff" font-size="10">Ballast B</text><circle cx="20" cy="50" r="3" fill="none" stroke="#6fa8dc" stroke-width="2"/><circle cx="120" cy="78" r="3" fill="none" stroke="#6fa8dc" stroke-width="2"/></svg>`,
-                specs: "<strong>Length:</strong> 130mm | <strong>Material:</strong> Red Cedar target profile.<br><strong>Ballast Layout:</strong> Split setup. Insert 60% lead in Front Ventral slot (Ballast A) and 40% in Mid-Rear cavity (Ballast B). Provides the signature slow S-curve swimming dynamic."
+                title: "// HYDRO-DYNAMICS MAP: HURON PERCH (130mm GLIDE)",
+                svg: `<svg width="260" height="100" viewBox="0 0 260 100"><path d="M10,50 Q70,10 140,30 T250,50 Q180,85 110,80 T10,50 Z" fill="none" stroke="#38bdf8" stroke-width="2" stroke-dasharray="4"/><circle cx="100" cy="63" r="7" fill="#fbbf24"/><circle cx="165" cy="58" r="5" fill="#fbbf24"/><text x="80" y="45" fill="#94a3b8" font-size="9" font-family="monospace">Bal_A 60%</text><text x="150" y="45" fill="#94a3b8" font-size="9" font-family="monospace">Bal_B 40%</text></svg>`,
+                specs: "<strong>Length Profile:</strong> 130mm | <strong>Ventral Weights:</strong> Split vector core placement. Prevents structural axis roll during aggressive retrieves."
             },
             shad: {
-                title: "TECHNICAL SPEC: 'ZOMBIE SHAD' (110mm SUSPENDING MINNOW)",
-                svg: `<svg width="240" height="100" viewBox="0 0 240 100"><path d="M10,45 Q60,15 130,25 T230,45 Q160,75 100,70 T10,45 Z" fill="none" stroke="#6fa8dc" stroke-width="2" stroke-dasharray="4"/><circle cx="85" cy="55" r="10" fill="#f1c232" stroke="#fff" /><text x="65" y="35" fill="#fff" font-size="10">Center Ballast</text><circle cx="15" cy="45" r="3" fill="none" stroke="#6fa8dc" stroke-width="2"/><path d="M22,55 L35,75" stroke="#6fa8dc" stroke-width="3" fill="none" /><text x="38" y="80" fill="#6fa8dc" font-size="10">Lip Edge</text></svg>`,
-                specs: "<strong>Length:</strong> 110mm | <strong>Material:</strong> Balsa Wood for high reaction float.<br><strong>Ballast Layout:</strong> Centered heavy ballast directly surrounding the belly hook hanger. Calibrated to offset balsa buoyancy for dead-stop water suspension."
-            },
-            crank: {
-                title: "TECHNICAL SPEC: 'DEEP REACTOR' (SQUAREBILL CRANKBAIT)",
-                svg: `<svg width="200" height="100" viewBox="0 0 200 100"><path d="M15,50 Q50,10 110,25 T190,50 Q130,90 80,85 T15,50 Z" fill="none" stroke="#6fa8dc" stroke-width="2" stroke-dasharray="4"/><circle cx="70" cy="65" r="12" fill="#f1c232" stroke="#fff" /><text x="50" y="40" fill="#fff" font-size="10">Low Ballast</text><path d="M25,60 L5,90" stroke="#fff" stroke-width="4" fill="none" /><text x="8" y="98" fill="#fff" font-size="10">Square Lip</text></svg>`,
-                specs: "<strong>Length:</strong> 75mm (Fat profile) | <strong>Material:</strong> White Pine / Cedar.<br><strong>Ballast Layout:</strong> Single ultra-low focal point ballast to ensure high roll stability and immediate deflection memory when impacting underwater rock structures."
+                title: "// HYDRO-DYNAMICS MAP: ZOMBIE SHAD (110mm SUSPEND)",
+                svg: `<svg width="240" height="100" viewBox="0 0 240 100"><path d="M10,45 Q60,15 130,25 T230,45 Q160,75 100,70 T10,45 Z" fill="none" stroke="#38bdf8" stroke-width="2" stroke-dasharray="4"/><circle cx="95" cy="53" r="9" fill="#fbbf24"/><text x="70" y="35" fill="#94a3b8" font-size="9" font-family="monospace">Center Gravity Vector</text></svg>`,
+                specs: "<strong>Length Profile:</strong> 110mm | <strong>Buoyancy Offset:</strong> Concentrated mass center perfectly counter-weights raw structural balsa lift arrays."
             }
         };
 
-        function openBlueprint(type) {
-            const data = blueprintsData[type];
-            if(data) {
-                document.getElementById('modalTitle').innerText = data.title;
-                document.getElementById('modalCanvas').innerHTML = data.svg;
-                document.getElementById('modalSpecs').innerHTML = data.specs;
+        function openBlueprint(id) {
+            const bp = blueprints[id];
+            if(bp) {
+                document.getElementById('modalTitle').innerText = bp.title;
+                document.getElementById('modalCanvas').innerHTML = bp.svg;
+                document.getElementById('modalSpecs').innerHTML = bp.specs;
                 document.getElementById('blueprintModal').style.display = 'flex';
             }
         }
@@ -404,145 +542,6 @@
         function closeBlueprint() {
             document.getElementById('blueprintModal').style.display = 'none';
         }
-
-        function toggleThread(id) {
-            const content = document.getElementById(id);
-            if(content.style.display === 'block') {
-                content.style.display = 'none';
-            } else {
-                content.style.display = 'block';
-            }
-        }
-
-        function calculateBallast() {
-            const wood = document.getElementById('woodType').value;
-            const weight = parseFloat(document.getElementById('blankWeight').value) || 0;
-            let factor = 0.5;
-            if (wood === 'balsa') factor = 1.2;
-            if (wood === 'cedar') factor = 0.7;
-            
-            const result = Math.round(weight * factor);
-            const resultBox = document.getElementById('ballastResult');
-            resultBox.innerHTML = `⚖️ Estimated Required Lead Ballast: ~<strong>${result}g</strong> for optimal balancing.`;
-            resultBox.style.display = 'block';
-        }
-
-        function escapeHTML(str) {
-            return str.replace(/&/g, "&amp;")
-                      .replace(/</g, "&lt;")
-                      .replace(/>/g, "&gt;")
-                      .replace(/"/g, "&quot;")
-                      .replace(/'/g, "&#039;");
-        }
-
-        async function loadPosts() {
-            if (!supabaseClient) return;
-            const container = document.getElementById('forumContainer');
-            
-            const staticThreadHTML = `
-                <div class="forum-thread">
-                    <div class="thread-header" onclick="toggleThread('thread1')">
-                        <div class="thread-info">
-                            <h3>Best lead weight distribution for stable 110mm glidebaits?</h3>
-                            <span class="thread-meta">Started by LureCrafter99 • Archive Thread</span>
-                        </div>
-                        <span class="thread-replies">Static</span>
-                    </div>
-                    <div id="thread1" class="thread-content">
-                        <div class="forum-post">
-                            <div class="post-author">LureCrafter99 (Topic Starter):</div>
-                            <div class="post-text">Hey guys, I'm carving a 110mm wooden glidebait but it keeps rolling on faster retrieves. Where should I center the belly weights?</div>
-                        </div>
-                    </div>
-                </div>
-            `;
-
-            try {
-                const { data: posts, error } = await supabaseClient
-                    .from('forum_posts')
-                    .select('*')
-                    .order('created_at', { ascending: false });
-
-                if (error) throw error;
-
-                let dynamicThreadsHTML = '';
-                if (posts && posts.length > 0) {
-                    posts.forEach((post, index) => {
-                        const safeUser = escapeHTML(post.username || 'Anonymous');
-                        const safeTitle = escapeHTML(post.title || 'No Title');
-                        const safeText = escapeHTML(post.message || '');
-                        const threadId = `dynamic_thread_${post.id || index}`;
-                        const dateStr = post.created_at ? new Date(post.created_at).toLocaleDateString() : 'Recent';
-
-                        dynamicThreadsHTML += `
-                            <div class="forum-thread">
-                                <div class="thread-header" onclick="toggleThread('${threadId}')">
-                                    <div class="thread-info">
-                                        <h3>${safeTitle}</h3>
-                                        <span class="thread-meta">Started by ${safeUser} • ${dateStr}</span>
-                                    </div>
-                                    <span class="thread-replies">Live</span>
-                                </div>
-                                <div id="${threadId}" class="thread-content">
-                                    <div class="forum-post">
-                                        <div class="post-author">${safeUser}:</div>
-                                        <div class="post-text">${safeText}</div>
-                                    </div>
-                                </div>
-                            </div>
-                        `;
-                    });
-                }
-
-                container.innerHTML = staticThreadHTML + dynamicThreadsHTML;
-
-            } catch (err) {
-                console.error("Error loading posts:", err);
-            }
-        }
-
-        async function createPost() {
-            if (!supabaseClient) {
-                alert("Supabase client is not initialized.");
-                return;
-            }
-
-            const usernameField = document.getElementById('forumUser');
-            const titleField = document.getElementById('forumTopic');
-            const contentField = document.getElementById('forumText');
-
-            const username = usernameField.value.trim();
-            const title = titleField.value.trim();
-            const message = contentField.value.trim();
-
-            if (!username || !title || !message) {
-                alert("Please fill in all fields before posting.");
-                return;
-            }
-
-            try {
-                const { error } = await supabaseClient
-                    .from('forum_posts')
-                    .insert([{ username, title, message }]);
-
-                if (error) throw error;
-
-                usernameField.value = '';
-                titleField.value = '';
-                contentField.value = '';
-
-                await loadPosts();
-                alert("Discussion posted successfully!");
-
-            } catch (err) {
-                console.error("Error creating post:", err);
-                alert("Failed to save post: " + err.message);
-            }
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            loadPosts();
-        });
     </script>
 </body>
 </html>

@@ -424,8 +424,6 @@
             return;
         }
 
-        const savedUser = localStorage.getItem('forum_username') || '';
-
         let html = '';
         filteredData.forEach(post => {
             const postDate = post.created_at ? new Date(post.created_at).toLocaleString() : 'Recent';
@@ -448,7 +446,7 @@
                                     <div id="comments_list_${post.id}" style="margin-bottom: 15px;"></div>
                                     
                                     <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-                                        <input type="text" id="comment_user_${post.id}" class="input-ctrl" placeholder="Call Sign" value="${escapeHTML(savedUser)}" style="width: 130px; padding: 6px 10px; font-size: 0.85rem;">
+                                        <input type="text" id="comment_user_${post.id}" class="input-ctrl" placeholder="Call Sign" style="width: 130px; padding: 6px 10px; font-size: 0.85rem;">
                                         <input type="text" id="comment_text_${post.id}" class="input-ctrl" placeholder="Input reply logs..." style="flex-grow: 1; padding: 6px 10px; font-size: 0.85rem;">
                                         <button class="btn btn-primary btn-sm" onclick="submitComment(${post.id})">Reply</button>
                                     </div>
@@ -464,11 +462,6 @@
         });
 
         container.innerHTML = html;
-
-        const mainUserField = document.getElementById('forumUser');
-        if (mainUserField && savedUser && !mainUserField.value) {
-            mainUserField.value = savedUser;
-        }
 
     } catch (err) {
         console.error("Error loading posts:", err);
@@ -534,8 +527,6 @@ async function submitComment(postId) {
         return;
     }
     
-    localStorage.setItem('forum_username', username);
-    
     try {
         const { error } = await supabaseClient
             .from('forum_comments')
@@ -549,7 +540,6 @@ async function submitComment(postId) {
         
         textEl.value = ''; 
         await loadComments(postId); 
-        await loadPosts();
     } catch (err) {
         alert("Failed to push comment node: " + err.message);
     }
@@ -572,7 +562,6 @@ async function createPost() {
         return;
     }
 
-    localStorage.setItem('forum_username', username);
     btn.disabled = true;
 
     try {
@@ -597,6 +586,7 @@ async function createPost() {
         btn.disabled = false;
     }
 }
+
         function toggleExpand(id) {
             const card = document.getElementById(`thread_${id}`);
             if(card) {

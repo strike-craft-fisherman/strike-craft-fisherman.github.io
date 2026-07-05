@@ -386,122 +386,195 @@
         }
 
         async function loadPosts() {
-            if (!supabaseClient) return;
-            const container = document.getElementById('forumContainer');
-            container.innerHTML = `<div style="text-align:center; padding: 20px; color: var(--text-muted);"><i class="fa-solid fa-spinner fa-spin"></i> Reading database arrays...</div>`;
+    if (!supabaseClient) return;
+    const container = document.getElementById('forumContainer');
+    container.innerHTML = `<div style="text-align:center; padding: 20px; color: var(--text-muted);"><i class="fa-solid fa-spinner fa-spin"></i> Reading database arrays...</div>`;
+    
+    try {
+        const { data, error } = await supabaseClient
+            .from('forum_posts')
+            .select('*')
+            .order('created_at', { ascending: false });
+
+        if (error) throw error;
+        updateStatus(true);
+
+        let filteredData = data || [];
+        if (activeTab === 'my') {
+            filteredData = filteredData.filter(post => mySubmittedIds.includes(post.id));
+        }
+
+        if (filteredData.length === 0) {
+            container.innerHTML = `
+                <div style="text-align:center; padding:40px; border: 1px dashed var(--border-subtle); border-radius:12px; color:var(--text-muted);">
+                    <i class="fa-solid fa-folder-open" style="font-size:2rem; margin-bottom:10px;"></i>
+                    <p>No active threads found.</p>
+                </div>`;
+            return;
+        }
+
+        let html = '';
+        filteredData.forEach(post => {
+            const postDate = post.created_at ? new Date(post.created_at).toLocaleString() : 'Recent';
+            const initial = post.username ? post.username.charAt(0) : 'A';
             
-            try {
-                const { data, error } = await supabaseClient
-                    .from('forum_posts')
-                    .select('*')
-                    .order('created_at', { ascending: false });
-
-                if (error) throw error;
-                updateStatus(true);
-
-                let filteredData = data || [];
-                if (activeTab === 'my') {
-                    filteredData = filteredData.filter(post => mySubmittedIds.includes(post.id));
-                }
-
-                if (filteredData.length === 0) {
-                    container.innerHTML = `
-                        <div style="text-align:center; padding:40px; border: 1px dashed var(--border-subtle); border-radius:12px; color:var(--text-muted);">
-                            <i class="fa-solid fa-folder-open" style="font-size:2rem; margin-bottom:10px;"></i>
-                            <p>No active telemetry rows found in this array filter.</p>
-                        </div>`;
-                    return;
-                }
-
-                let html = '';
-                filteredData.forEach(post => {
-                    const postDate = post.created_at ? new Date(post.created_at).toLocaleString() : 'Recent timestamp';
-                    const initial = post.username ? post.username.charAt(0) : 'A';
-                    
-                    html += `
-                        <div class="thread-item" id="thread_${post.id}" onclick="toggleExpand(${post.id})">
-                            <div class="thread-main-row">
-                                <div class="author-avatar-circle">${escapeHTML(initial)}</div>
-                                <div class="thread-core">
-                                    <div class="thread-title-line">
-                                        ${escapeHTML(post.title || 'Untitled Thread')}
-                                    </div>
-                                    <div class="thread-body-preview" id="body_${post.id}">
-                                        ${escapeHTML(post.message || 'Empty payload message data.')}
-                                    </div>
-                                    <div class="thread-footer-meta">
-                                        <div class="meta-tag"><i class="fa-solid fa-user"></i> <span>${escapeHTML(post.username || 'Anonymous')}</span></div>
-                                        <div class="meta-tag"><i class="fa-solid fa-clock"></i> <span>${postDate}</span></div>
-                                        <div class="meta-tag"><i class="fa-solid fa-database"></i> <span>Row ID: ${post.id}</span></div>
+            html += `
+                <div class="thread-item" id="thread_${post.id}" onclick="toggleExpand(${post.id})">
+                    <div class="thread-main-row">
+                        <div class="author-avatar-circle">${escapeHTML(initial)}</div>
+                        <div class="thread-core">
+                            <div class="thread-title-line">
+                                ${escapeHTML(post.title || 'Untitled Thread')}
+                            </div>
+                            <div class="thread-body-preview" id="body_${post.id}">
+                                ${escapeHTML(post.message || '')}
+                                
+                                <div class="comments-section" style="margin-top: 20px; padding-top: 15px; border-top: 1px dashed var(--border-subtle);" onclick="event.stopPropagation();">
+                                    <h4 style="font-size: 0.9rem; color: var(--brand-primary); margin-bottom: 10px;"><i class="fa-solid fa-comments"></i> Comments Matrix</h4>
+                                    
+                                    <div id="comments_list_${post.id}" style="margin-bottom: 15px;"></div>
+                                    
+                                    <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                                        <input type="text" id="comment_user_${post.id}" class="input-ctrl" placeholder="Call Sign" style="width: 130px; padding: 6px 10px; font-size: 0.85rem;">
+                                        <input type="text" id="comment_text_${post.id}" class="input-ctrl" placeholder="Input reply logs..." style="flex-grow: 1; padding: 6px 10px; font-size: 0.85rem;">
+                                        <button class="btn btn-primary btn-sm" onclick="submitComment(${post.id})">Reply</button>
                                     </div>
                                 </div>
                             </div>
-                            <div class="thread-actions">
-                                <button class="action-icon-btn" onclick="event.stopPropagation(); alert('Telemetry vote counted.')">
-                                    <i class="fa-solid fa-arrow-up"></i> Upvote
-                                </button>
-                                <button class="action-icon-btn" onclick="event.stopPropagation(); alert('Diagnostic report logged.')">
-                                    <i class="fa-solid fa-circle-exclamation"></i> Report
-                                </button>
+                            <div class="thread-footer-meta">
+                                <div class="meta-tag"><i class="fa-solid fa-user"></i> <span>${escapeHTML(post.username || 'Anonymous')}</span></div>
+                                <div class="meta-tag"><i class="fa-solid fa-clock"></i> <span>${postDate}</span></div>
                             </div>
-                        </div>`;
-                });
+                        </div>
+                    </div>
+                </div>`;
+        });
 
-                container.innerHTML = html;
+        container.innerHTML = html;
 
-            } catch (err) {
-                console.error("Error reading schema cache:", err);
-                updateStatus(false);
-                container.innerHTML = `<div style="color:var(--error); padding:20px; border:1px solid rgba(239,68,68,0.2); border-radius:12px; background:rgba(239,68,68,0.05);"><i class="fa-solid fa-triangle-exclamation"></i> Schema Array Fetch Exception: ${err.message}</div>`;
-            }
+    } catch (err) {
+        console.error("Error loading posts:", err);
+        updateStatus(false);
+    }
+}
+
+async function toggleExpand(id) {
+    const card = document.getElementById(`thread_${id}`);
+    if(card) {
+        card.classList.toggle('expanded');
+        if (card.classList.contains('expanded')) {
+            await loadComments(id);
+        }
+    }
+}
+
+async function loadComments(postId) {
+    const box = document.getElementById(`comments_list_${postId}`);
+    if (!box) return;
+    
+    box.innerHTML = `<span style="font-size:0.8rem; color:var(--text-muted);"><i class="fa-solid fa-spinner fa-spin"></i> Reading reply arrays...</span>`;
+    
+    try {
+        const { data, error } = await supabaseClient
+            .from('forum_comments')
+            .select('*')
+            .eq('post_id', postId)
+            .order('created_at', { ascending: true });
+
+        if (error) throw error;
+
+        if (!data || data.length === 0) {
+            box.innerHTML = `<p style="font-size: 0.85rem; color: var(--text-muted); font-style: italic;">No replies logged in this node yet.</p>`;
+            return;
         }
 
-        async function createPost() {
-            if (!supabaseClient) return;
+        let html = '';
+        data.forEach(c => {
+            html += `
+                <div style="background: rgba(255,255,255,0.02); padding: 10px 14px; border-radius: 8px; margin-bottom: 8px; border-left: 2px solid var(--brand-primary);">
+                    <div style="font-size: 0.75rem; color: var(--brand-primary); font-weight: 700; margin-bottom: 4px;">
+                        ${escapeHTML(c.username)} <span style="color: var(--text-muted); font-weight: 400; margin-left: 8px;">${new Date(c.created_at).toLocaleTimeString()}</span>
+                    </div>
+                    <div style="font-size: 0.9rem; color: var(--text-main); font-family: inherit;">${escapeHTML(c.comment_text)}</div>
+                </div>`;
+        });
+        box.innerHTML = html;
+    } catch (err) {
+        box.innerHTML = `<span style="color:var(--error); font-size:0.8rem;">Exception loading comments.</span>`;
+    }
+}
 
-            const userField = document.getElementById('forumUser');
-            const topicField = document.getElementById('forumTopic');
-            const textField = document.getElementById('forumText');
-            const btn = document.getElementById('submitPostBtn');
+async function submitComment(postId) {
+    const userEl = document.getElementById(`comment_user_${postId}`);
+    const textEl = document.getElementById(`comment_text_${postId}`);
+    
+    const username = userEl.value.trim();
+    const comment_text = textEl.value.trim();
+    
+    if (!username || !comment_text) {
+        alert("Please fill in both name and text fields.");
+        return;
+    }
+    
+    try {
+        const { error } = await supabaseClient
+            .from('forum_comments')
+            .insert([{ 
+                post_id: postId, 
+                username: username, 
+                comment_text: comment_text 
+            }]);
+            
+        if (error) throw error;
+        
+        textEl.value = ''; 
+        await loadComments(postId); 
+    } catch (err) {
+        alert("Failed to push comment node: " + err.message);
+    }
+}
 
-            const username = userField.value.trim();
-            const title = topicField.value.trim();
-            const message = textField.value.trim();
+async function createPost() {
+    if (!supabaseClient) return;
 
-            if (!username || !title || !message) {
-                alert("All technical schema properties must be populated.");
-                return;
-            }
+    const userField = document.getElementById('forumUser');
+    const topicField = document.getElementById('forumTopic');
+    const textField = document.getElementById('forumText');
+    const btn = document.getElementById('submitPostBtn');
 
-            btn.disabled = true;
-            btn.innerHTML = `<i class="fa-solid fa-circle-notch fa-spin"></i> Broadcasting...`;
+    const username = userField.value.trim();
+    const title = topicField.value.trim();
+    const message = textField.value.trim();
 
-            try {
-                const { data, error } = await supabaseClient
-                    .from('forum_posts')
-                    .insert([{ username, title, message }])
-                    .select();
+    if (!username || !title || !message) {
+        alert("All structural fields required.");
+        return;
+    }
 
-                if (error) throw error;
+    btn.disabled = true;
 
-                if(data && data[0]) {
-                    mySubmittedIds.push(data[0].id);
-                    localStorage.setItem('my_threads', JSON.stringify(mySubmittedIds));
-                }
+    try {
+        const { data, error } = await supabaseClient
+            .from('forum_posts')
+            .insert([{ username, title, message }])
+            .select();
 
-                topicField.value = '';
-                textField.value = '';
-                document.getElementById('charCount').innerText = "0 / 600";
-                
-                await loadPosts();
-            } catch (err) {
-                console.error("Insert fail:", err);
-                alert("Broadcast abort operation fail: " + err.message);
-            } finally {
-                btn.disabled = false;
-                btn.innerHTML = `<i class="fa-solid fa-paper-plane"></i> Broadcast Thread`;
-            }
+        if (error) throw error;
+
+        if(data && data[0]) {
+            mySubmittedIds.push(data[0].id);
+            localStorage.setItem('my_threads', JSON.stringify(mySubmittedIds));
         }
+
+        topicField.value = '';
+        textField.value = '';
+        await loadPosts();
+    } catch (err) {
+        alert("Fail: " + err.message);
+    } finally {
+        btn.disabled = false;
+    }
+}
 
         function toggleExpand(id) {
             const card = document.getElementById(`thread_${id}`);
